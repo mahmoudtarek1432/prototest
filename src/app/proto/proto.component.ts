@@ -37,13 +37,6 @@ export class ProtoComponent {
     console.log(protoHelper);
   }
 
-  encode(){
-    var payload = {"awesomeField": this.prototext}
-    this.protoFileAccessor((message) =>{
-      var errmsg = message?.verify(payload)
-      if(errmsg)
-        throw Error(errmsg)
-
 
   encode(){
     var payload = {"awesomeField": this.prototext, "awesomeType": 2}
