@@ -1,0 +1,5 @@
+syntax = "proto3";
+
+package WebAPI_3;
+
+import "awesome_3.proto";
