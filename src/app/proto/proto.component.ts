@@ -6,6 +6,8 @@ import { ProtobufType, ProtoWrapper } from 'src/ProtoWraper/protowrapper';
 import { timeInterval } from 'rxjs';
 import { ProtoHelper } from '../helper/proto-helper';
 import { Awesome } from '../models/awesome';
+import { from, Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-proto',
@@ -13,14 +15,14 @@ import { Awesome } from '../models/awesome';
   styleUrls: ['./proto.component.scss']
 })
 export class ProtoComponent {
-
+  wrapper!: ProtoWrapper
   prototext:any
-
+  Text!:Observable<any>
 
   constructor(){
-
+    this.wrapper = new ProtoWrapper(new ProtobufType("./assets/testingprotojs.proto", "package.testingproto"))
   }
-  
+
   async encode2(){
     const awsomeData = new Awesome();
     awsomeData.awesomeField = this.prototext;
@@ -42,22 +44,24 @@ export class ProtoComponent {
       if(errmsg)
         throw Error(errmsg)
 
-      var msg = message!.create(payload)
-      var wrapper = new ProtoWrapper(new ProtobufType("./assets/testingprotojs.proto", "package.testingproto"))
-      
-      var encoded = wrapper.Encode(msg)
-      console.log(encoded)
-    })
 
-  }
+  encode(){
+    var payload = {"awesomeField": this.prototext, "awesomeType": 2}
+
+    this.wrapper.create(payload).then(msg=> 
+    this.wrapper.Encode(msg).then(r => this.prototext = r))
+      
+    }
 
   decode(){
-    this.protoFileAccessor((message) => {
-      var msgobj = message!.decode(this.prototext)
-      var proto = message!.toObject(msgobj)
-      this.prototext = proto["awesomeField"]
-    })
+    
+    this.wrapper.Decode(Uint8Array.from(this.prototext))
+           .then(r => this.prototext = r)
+           .then(()=> this.wrapper.toObject(this.prototext)
+           .then((r)=> this.prototext = r["awesomeType"]))
   }
+
+
 
   protoFileAccessor(callback:(protomessage: protobuf.Type| undefined) => any){
     
@@ -66,8 +70,4 @@ export class ProtoComponent {
       callback(message)
     })
   }
-}
-
-class test {
-  awesome_field:string = "sad"
 }

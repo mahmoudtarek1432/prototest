@@ -12,13 +12,11 @@ export class ProtoWrapper{
 
     /**function handels accessing the .proto file containing the package and its message types
     callback function handels the protobuf.js library toolset such as encoding/decoding/create/verify */
-    protoFileAccessor(procedureCallback:(protomessage: protobuf.Type| undefined) => any):any{
-    
-        protobuf.load(this.ProtobufType.filePath,((err,root)=>{
-        var message = root?.lookupType(this.ProtobufType.ObjectLookupType);
-        
-        this.result = procedureCallback(message)
-        }))
+    async protoFileAccessor(procedureCallback:(protomessage: protobuf.Type| undefined) => any):Promise<any>{
+
+        var buf = await protobuf.load(this.ProtobufType.filePath)
+        var msg = buf.lookupType(this.ProtobufType.ObjectLookupType)
+        return procedureCallback(msg)
     }
 
     verify(payload:{k : [string]}){
@@ -34,32 +32,38 @@ export class ProtoWrapper{
      * Avoid naming the key using the protobuf naming convention as it will return an empty protomessage
      * (_)
       */
-    create(payload:{k : [string]}):protobuf.Message<{}>{
+    create(payload: any):Promise<protobuf.Message<{}>>{
         return this.protoFileAccessor((message):protobuf.Message<{}> => {
             var errmsg = message!.verify(payload)
             if(errmsg)
                 throw Error(errmsg)
-
+            console.log(payload)
             return message!.create(payload)
         })
     }
     
-
-    Encode(protobufMessage:protobuf.Message<{}>,writer?:protobuf.Writer): any{
-        var feedback :any
+     /**
+     * @param protobufMessage - The protomessage to be encoded
+     * @param writer - The encoding writer
+     * 
+      */
+    Encode(protobufMessage:protobuf.Message<{}>,writer?:protobuf.Writer): Promise<any>{
         return this.protoFileAccessor((message) =>{
-            console.log(protobufMessage, writer)
-            feedback = message!.encode(protobufMessage,writer).finish()
-            return feedback
+            return message!.encode(protobufMessage,writer).finish()
+        })
+
+    }
+
+    Decode(encodedMessage:Uint8Array,Length?:number):Promise<protobuf.Message<{}>> {
+        return this.protoFileAccessor((message) => {
+            console.log(message!.decode(encodedMessage))
+            return message!.decode(encodedMessage)
         })
     }
 
-    Decode(encodedMessage:Uint8Array,Length?:number):protobuf.Message<{}> {
-        return this.protoFileAccessor((message) => {
-            if(Length)
-                return message!.decode(encodedMessage,length)
-            
-            return message!.decode(encodedMessage,length)
+    toObject(ProtoMessage: protobuf.Message<{}>){
+        return this.protoFileAccessor((message) =>{
+            return message!.toObject(ProtoMessage)
         })
     }
 

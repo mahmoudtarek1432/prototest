@@ -3,4 +3,5 @@ syntax = "proto3";
 
 message testingproto {
     string awesome_field = 1; // becomes awesomeField
+    int32 awesome_type = 2;
 }
