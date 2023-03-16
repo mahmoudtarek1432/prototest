@@ -1,0 +1,14 @@
+
+.page{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .cont{
+        display: flex;
+        width: 400px;
+    }
+}

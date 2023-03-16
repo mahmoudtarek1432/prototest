@@ -1,0 +1,6 @@
+package package;
+syntax = "proto3";
+
+message testingproto {
+    string awesome_field = 1; // becomes awesomeField
+}

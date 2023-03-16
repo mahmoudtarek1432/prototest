@@ -1,0 +1,12 @@
+
+<div class="page">
+    <div class="cont">
+        <input [ngModel]="prototext" (ngModelChange) = "prototext = $event" nz-input placeholder="Encode" nzSize="default" />
+    </div>
+    
+    <p></p>
+    <div class="cont"> 
+        <button nz-button nzType="primary" nzDanger (click)="decode()">decode</button>
+        <button nz-button nzType="primary" (click)="encode()">Encode</button>
+    </div>
+</div>
