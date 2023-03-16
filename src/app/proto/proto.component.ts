@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import * as protobuf from 'protobufjs';
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { Message } from "protobufjs"
 import { ProtobufType, ProtoWrapper } from 'src/ProtoWraper/protowrapper';
-import { timeInterval } from 'rxjs';
 import { ProtoHelper } from '../helper/proto-helper';
 import { Awesome } from '../models/awesome';
-import { from, Observable } from 'rxjs';
 
 
 @Component({
@@ -15,12 +11,11 @@ import { from, Observable } from 'rxjs';
   styleUrls: ['./proto.component.scss']
 })
 export class ProtoComponent {
-  wrapper!: ProtoWrapper
-  prototext:any
-  Text!:Observable<any>
+  wrapper!: ProtoWrapper;
+  prototext:any;
 
   constructor(){
-    this.wrapper = new ProtoWrapper(new ProtobufType("./assets/testingprotojs.proto", "package.testingproto"))
+    this.wrapper = new ProtoWrapper(new ProtobufType("./assets/testingprotojs.proto", "package.testingproto"));
   }
 
   async encode2(){
@@ -39,10 +34,10 @@ export class ProtoComponent {
 
 
   encode(){
-    var payload = {"awesomeField": this.prototext, "awesomeType": 2}
+    var payload = {"awesomeField": this.prototext, "awesomeType": 2};
 
     this.wrapper.create(payload).then(msg=> 
-    this.wrapper.Encode(msg).then(r => this.prototext = r))
+    this.wrapper.Encode(msg).then(r => this.prototext = r));
       
     }
 
@@ -51,7 +46,7 @@ export class ProtoComponent {
     this.wrapper.Decode(Uint8Array.from(this.prototext))
            .then(r => this.prototext = r)
            .then(()=> this.wrapper.toObject(this.prototext)
-           .then((r)=> this.prototext = r["awesomeType"]))
+           .then((r)=> this.prototext = r["awesomeType"]));
   }
 
 
@@ -60,7 +55,7 @@ export class ProtoComponent {
     
     protobuf.load("./assets/testingprotojs.proto",(err,root)=>{
     var message = root?.lookupType("package.testingproto");
-      callback(message)
-    })
+      callback(message);
+    });
   }
 }
