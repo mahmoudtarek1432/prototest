@@ -1,7 +1,7 @@
 import { AuthEndpoint } from "src/app/Endpoints/AuthEndpoint";
 import { loginEndpoint } from "src/app/Endpoints/LoginEndopoint";
 import { ResponseManager } from "src/app/models/EndpointResponseManager";
-import { LoginResponse } from "src/app/models/LoginRequest";
+import { LoginResponse } from "src/app/models/login-request";
 import { ResponseEndpointHelper } from "./ResponseEndpointHelper";
 
 export class ResponseService{

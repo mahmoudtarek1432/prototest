@@ -1,12 +1,9 @@
 import { ProtobufType } from "src/ProtoWraper/ProtoBufType"
+import { LoginResponse } from "./login-response"
 
-export class ResponseManager{
-    Errors?: string[]
-    Message?: string[]
-    Code?:number
-    Data!:ProtobufType[]
+export class ResponseManager {
+    loginResponses:LoginResponse[] | undefined;
 
-    constructor(data:ProtobufType[]){
-        this.Data = data
+    constructor() {
     }
 }

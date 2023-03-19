@@ -1,5 +1,5 @@
 import { IRequest } from "src/app/models/IRequest";
-import { loginRequest } from "src/app/models/LoginRequest";
+import { loginRequest } from "src/app/models/login-request";
 import { loginProto } from "src/proto/LoginProto";
 import { ProtobufType } from "src/ProtoWraper/ProtoBufType";
 
