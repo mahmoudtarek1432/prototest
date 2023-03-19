@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import * as protobuf from 'protobufjs';
-import { AwesomeProto } from 'src/ProtoModels/AwesomeProto';
+import { AwesomeProto } from 'src/proto/AwesomeProto';
 import { ProtobufType } from 'src/ProtoWraper/ProtoBufType';
 import { ProtoWrapper } from 'src/ProtoWraper/protowrapper';
 import { ProtoHelper } from '../helper/proto-helper';
@@ -34,15 +34,15 @@ export class ProtoComponent {
   }
 
 
-  async encode(){
+  encode(){
     let awesome = new AwesomeProto(this.prototext,1);
     let wrapper = new ProtoWrapper(AwesomeProto);
 
-    this.prototext = await wrapper.EncodeMessage(awesome)
-      
+    wrapper.EncodeMessage(awesome)
     }
 
   decode(){
+    
     
   }
 
