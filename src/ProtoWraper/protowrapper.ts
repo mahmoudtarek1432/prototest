@@ -54,6 +54,12 @@ export class ProtoWrapper{
 
     }
 
+    /**
+     * 
+     * @param encodedMessage - Decodes Encoded Messages using Uint8Array
+     * @param Length 
+     * @returns A promise protoMessage, use toObject To access the type members
+     */
     Decode(encodedMessage:Uint8Array,Length?:number):Promise<protobuf.Message<{}>> {
         return this.protoFileAccessor((message) => {
             console.log(message!.decode(encodedMessage))

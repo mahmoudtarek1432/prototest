@@ -16,6 +16,7 @@ export class ProtoComponent {
 
   constructor(){
     this.wrapper = new ProtoWrapper(new ProtobufType("./assets/testingprotojs.proto", "package.testingproto"));
+    let ws = new WebSocket("url")
   }
 
   async encode2(){
