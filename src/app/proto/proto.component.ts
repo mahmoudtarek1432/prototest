@@ -34,11 +34,11 @@ export class ProtoComponent {
   }
 
 
-  encode(){
+  async encode(){
     let awesome = new AwesomeProto(this.prototext,1);
     let wrapper = new ProtoWrapper(AwesomeProto);
 
-    wrapper.EncodeMessage(awesome)
+    this.prototext = await wrapper.EncodeMessage(awesome)
       
     }
 
