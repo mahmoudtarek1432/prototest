@@ -9,8 +9,8 @@ export class ResponseService{
 }
 
 class ResponsePool{
-    Endpoints ={
+    Endpoints = {
         1 : new loginEndpoint().handleLogin,
         2 : new AuthEndpoint().handleLogin
-    }
+    };
 }

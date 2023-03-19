@@ -1,5 +1,5 @@
 export abstract class IRequest{
-    Id!:number;
+    Id :number|null;
     constructor(Id:number){
         this.Id = Id
     }

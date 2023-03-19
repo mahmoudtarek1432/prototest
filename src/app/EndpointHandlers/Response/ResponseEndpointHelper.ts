@@ -10,11 +10,12 @@ export class ResponseEndpointHelper{
     }
 
     AddResponseEndpoint(RequestType:{new():IRequest}, requestDelegate:(protoMessage:any)=>void ){
-        let requestId = new RequestType().Id
-        this.RequestDelgate[requestId] = requestDelegate
+        let requestId = new RequestType().Id;
+        if (requestId)
+            this.RequestDelgate[requestId] = requestDelegate;
     }
 
     ResolveResponseEndpoint(id:number, protoMessage:ProtobufType){
-        this.RequestDelgate[id](protoMessage)
+        this.RequestDelgate[id](protoMessage);
     }
 }
