@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import * as protobuf from 'protobufjs';
-import { ProtobufType, ProtoWrapper } from 'src/ProtoWraper/protowrapper';
+import { ProtobufType } from 'src/ProtoWraper/ProtoBufType';
+import { ProtoWrapper } from 'src/ProtoWraper/protowrapper';
 import { ProtoHelper } from '../helper/proto-helper';
 import { Awesome } from '../models/awesome';
 

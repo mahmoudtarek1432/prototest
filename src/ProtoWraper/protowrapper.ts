@@ -1,7 +1,8 @@
 import * as protobuf from 'protobufjs';
+import { ProtobufType } from './ProtoBufType';
 
 /**A wrapper built on top of protobuf.js to ease implementation*/
-export class ProtoWrapper{
+export class ProtoWrapper<T extends ProtobufType>{
 
     ProtobufType! : ProtobufType
     result!:any
@@ -31,7 +32,7 @@ export class ProtoWrapper{
      * @param payload - The payload to be sent inside the message
      * Avoid naming the key using the protobuf naming convention as it will return an empty protomessage
      * (_)
-      */
+     */
     create(payload: any):Promise<protobuf.Message<{}>>{
         return this.protoFileAccessor((message):protobuf.Message<{}> => {
             var errmsg = message!.verify(payload)
@@ -47,7 +48,7 @@ export class ProtoWrapper{
      * @param writer - The encoding writer
      * 
       */
-    Encode(protobufMessage:protobuf.Message<{}>,writer?:protobuf.Writer): Promise<any>{
+    Encode(protobufMessage:protobuf.Message<{}>,writer?:protobuf.Writer): Promise<Uint8Array>{
         return this.protoFileAccessor((message) =>{
             return message!.encode(protobufMessage,writer).finish()
         })
@@ -79,22 +80,3 @@ export class ProtoWrapper{
 
 }
 
-export class ProtobufType{
-    /**Access string for protoObject used as an argument in the protobuf.load function*/
-    filePath!: string
-
-    /**String passed will act as the proto message type
-     * covention: "PackageName.MessageType"
-    */
-    ObjectLookupType!: string
-    /** 
-     * @param filePath - Access string for protoObject used as an argument in the protobuf.load function
-     * 
-     * @param ObjectLookupType - tring passed will act as the proto message type covention: "PackageName.MessageType"
-     * */ 
-    
-    constructor(filePath:string, ObjectLookupType:string){
-        this.filePath = filePath
-        this.ObjectLookupType = ObjectLookupType
-    }
-}
