@@ -5,8 +5,8 @@ import { ProtobufType } from './ProtoBufType';
 export class ProtoWrapper<T extends ProtobufType>{
     ProtobufType!: ProtobufType
 
-    constructor(ProtoObject:T){ 
-        this.ProtobufType = ProtoObject
+    constructor(Type: {new():T}){ 
+        this.ProtobufType = new Type()
     }
 
     /**function handels accessing the .proto file containing the package and its message types
