@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import * as protobuf from 'protobufjs';
+import { AwesomeProto } from 'src/ProtoModels/AwesomeProto';
 import { ProtobufType } from 'src/ProtoWraper/ProtoBufType';
 import { ProtoWrapper } from 'src/ProtoWraper/protowrapper';
 import { ProtoHelper } from '../helper/proto-helper';
@@ -12,12 +13,10 @@ import { Awesome } from '../models/awesome';
   styleUrls: ['./proto.component.scss']
 })
 export class ProtoComponent {
-  wrapper!: ProtoWrapper;
-  prototext:any;
+
+  prototext!:any;
 
   constructor(){
-    this.wrapper = new ProtoWrapper(new ProtobufType("./assets/testingprotojs.proto", "package.testingproto"));
-    let ws = new WebSocket("url")
   }
 
   async encode2(){
@@ -36,19 +35,15 @@ export class ProtoComponent {
 
 
   encode(){
-    var payload = {"awesomeField": this.prototext, "awesomeType": 2};
+    let awesome = new AwesomeProto(this.prototext,1);
+    let wrapper = new ProtoWrapper(AwesomeProto);
 
-    this.wrapper.create(payload).then(msg=> 
-    this.wrapper.Encode(msg).then(r => this.prototext = r));
+    wrapper.EncodeMessage(awesome)
       
     }
 
   decode(){
     
-    this.wrapper.Decode(Uint8Array.from(this.prototext))
-           .then(r => this.prototext = r)
-           .then(()=> this.wrapper.toObject(this.prototext)
-           .then((r)=> this.prototext = r["awesomeType"]));
   }
 
 

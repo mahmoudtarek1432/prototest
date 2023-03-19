@@ -3,12 +3,10 @@ import { ProtobufType } from './ProtoBufType';
 
 /**A wrapper built on top of protobuf.js to ease implementation*/
 export class ProtoWrapper<T extends ProtobufType>{
+    ProtobufType!: ProtobufType
 
-    ProtobufType! : ProtobufType
-    result!:any
-
-    constructor(protobufType:ProtobufType){
-        this.ProtobufType = protobufType
+    constructor(ProtoObject:T){ 
+        this.ProtobufType = ProtoObject
     }
 
     /**function handels accessing the .proto file containing the package and its message types
@@ -44,15 +42,32 @@ export class ProtoWrapper<T extends ProtobufType>{
     }
     
      /**
+     * Use to encode an already created protoMessage
      * @param protobufMessage - The protomessage to be encoded
      * @param writer - The encoding writer
      * 
       */
-    Encode(protobufMessage:protobuf.Message<{}>,writer?:protobuf.Writer): Promise<Uint8Array>{
+    EncodeProto(protobufMessage:protobuf.Message<{}>,writer?:protobuf.Writer): Promise<Uint8Array>{
         return this.protoFileAccessor((message) =>{
             return message!.encode(protobufMessage,writer).finish()
         })
+    }
 
+    /**
+     * Use to encode a an object of type protoMessage
+     * @param payload 
+     * @returns 
+     */
+    async EncodeMessage(payload: T): Promise<Uint8Array>{
+        return await this.protoFileAccessor((message) => {
+            var errmsg = message!.verify(payload)
+            if(errmsg)
+                throw Error(errmsg)
+            //create a protoMessage wrapped arrount the protoType Object
+            let protoMessage = message!.create(payload)
+            //encodes proto message to uint8array 
+            return message!.encode(protoMessage).finish()
+        })
     }
 
     /**
@@ -61,10 +76,16 @@ export class ProtoWrapper<T extends ProtobufType>{
      * @param Length 
      * @returns A promise protoMessage, use toObject To access the type members
      */
-    Decode(encodedMessage:Uint8Array,Length?:number):Promise<protobuf.Message<{}>> {
+    DecodeToMessage(encodedMessage:Uint8Array,Length?:number):Promise<protobuf.Message<{}>> {
         return this.protoFileAccessor((message) => {
-            console.log(message!.decode(encodedMessage))
             return message!.decode(encodedMessage)
+        })
+    }
+
+    async Decode(encodedMessage:Uint8Array):Promise<T>{
+        return await this.protoFileAccessor((message) => {
+            var decoded = message!.decode(encodedMessage)
+            return message!.toObject(decoded)
         })
     }
 

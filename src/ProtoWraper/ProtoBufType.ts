@@ -21,4 +21,8 @@ export abstract class ProtobufType{
         this.filePath = filePath
         this.ObjectLookupType = ObjectLookupType
     }
+
+    protobufTypeAccess():ProtobufType{
+        return this
+    }
 }
