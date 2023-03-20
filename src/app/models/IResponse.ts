@@ -1,4 +1,4 @@
 export abstract class IResponse {
-    requestId: number|null = null;
+    responseId!: number
     errors = new Array<Error>();
 }

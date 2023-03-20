@@ -1,4 +1,5 @@
 import { ProtobufType } from "src/ProtoWraper/ProtoBufType"
+import { ResponseService } from "../EndpointHandlers/Response/ResponseService"
 import { IRequest } from "./IRequest"
 
 export class AuthResponse extends IRequest{

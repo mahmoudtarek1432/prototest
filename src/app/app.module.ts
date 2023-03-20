@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { inject, Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +13,8 @@ import en from '@angular/common/locales/en';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginService } from './Services/LoginService/login.service';
+import { EndpointsSubjects } from 'src/Shared/Endpoints-Subjects';
 
 registerLocaleData(en);
 
@@ -31,8 +33,17 @@ registerLocaleData(en);
     NzInputModule
   ],
   providers: [
+    EndpointsSubjects,
+    LoginService,
     { provide: NZ_I18N, useValue: en_US }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class AppModule { 
+  static injectorInstance: Injector
+  //static injector instantiated
+  constructor(private DIinstance: Injector){
+    AppModule.injectorInstance = this.DIinstance
+  }
+}

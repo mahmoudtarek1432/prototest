@@ -12,7 +12,8 @@ export class websocketHelper {
 
         if(this.websocketPort)
             return this.websocketPort;
-        this.websocketPort = new WebSocket(Globals.wsUrl);
+        let socket = new WebSocket(Globals.wsUrl);
+        this.websocketPort = socket
         return this.websocketPort;
     }
 
