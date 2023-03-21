@@ -11,7 +11,7 @@ import { EndpointsMap } from 'src/Shared/EnpointMap';
 })
 export class LoginEndpoint implements IResponseEndpoint {
   constructor(private endpointSubjects:EndpointsSubjects) {
-    EndpointsMap.CreateEndpoint(LoginResponse,LoginEndpoint)
+    EndpointsMap.CreateEndpoint(LoginResponse,LoginEndpoint);
   }
   handle(responseObj: LoginResponse): void {
     this.endpointSubjects.updateSubject<LoginResponse>(responseObj.requestId!, responseObj);

@@ -7,12 +7,12 @@ export abstract class EndpointsMap{
     static Map:{[k:string]: {new(subscriptions:EndpointsSubjects):IResponseEndpoint}} = {
 
     }
-    static CreateEndpoint<R extends IResponse,S extends IResponseEndpoint>(Response :{new():R}, Endpoint :{new(subscriptions:EndpointsSubjects):S}){
-        let ResponseName = Response.name
-        EndpointsMap.Map[ResponseName] = Endpoint;
+    static CreateEndpoint<R extends IResponse,S extends IResponseEndpoint>(response :{new():IResponse}, endpoint :{new(subscriptions:EndpointsSubjects):S}){
+        let responseName = response.name
+        EndpointsMap.Map[responseName] = endpoint;
     }
 
-    static resolveEndpoint(ResponseName :string): {new(subscriptions:EndpointsSubjects):IResponseEndpoint}{
-        return EndpointsMap.Map[ResponseName];
+    static resolveEndpoint(responseName :string): {new(subscriptions:EndpointsSubjects):IResponseEndpoint}{
+        return EndpointsMap.Map[responseName];
     }
 }
