@@ -11,6 +11,6 @@ import { EndpointsSubjects } from 'src/Shared/Endpoints-Subjects';
 export class LoginEndpoint implements IResponseEndpoint {
   constructor(private endpointSubjects:EndpointsSubjects) { }
   handle(responseObj: LoginResponse): void {
-    this.endpointSubjects.updateSubject<LoginResponse>(responseObj.responseId!, responseObj)
+    this.endpointSubjects.updateSubject<LoginResponse>(responseObj.requestId!, responseObj)
   }
 }

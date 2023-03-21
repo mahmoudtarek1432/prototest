@@ -24,13 +24,17 @@ export class AppComponent{
   constructor(testSubject: EndpointsSubjects){
     websocketHelper.ReciveWebsocketMessage((message)=>{                                                               //case of auth endpoint
       let decoded = ProtoHelper.decode<EndpointResponses>("temp","endpoint","endpointResponse",message.data)
-      decoded.then((endpoint) =>{
-        endpoint.loginResponses?.map((response)=>{
-          if(response.responseId!=null){
-            //EndpointResponseFactory.Create(response.responseId).handle(response); //find a way to fix typing
-            switch(response.responseId){
+      decoded.then((endpointResponses) =>{
+
+        endpointResponses
+
+
+        endpointResponses.loginResponses?.map((endpointResponses)=>{
+          if(endpointResponses.requestId!=null){
+            //EndpointResponseFactory.Create(response.requestId).handle(response); //find a way to fix typing
+            switch(endpointResponses.requestId){
               case 1:
-                AppModule.injectorInstance.get(LoginService).AuthResponse(response)
+                AppModule.injectorInstance.get(LoginService).AuthResponse(endpointResponses)
             }
           }
         })

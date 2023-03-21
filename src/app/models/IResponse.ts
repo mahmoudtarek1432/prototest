@@ -1,4 +1,8 @@
+import { ResultCode } from "./result-code";
+import { Error } from "./error";
+
 export abstract class IResponse {
-    responseId!: number
+    requestId!: number;
+    resultCode!: ResultCode;
     errors = new Array<Error>();
 }
