@@ -6,6 +6,5 @@ import { ProductResponse } from "./product-response";
 export class EndpointResponses {
     loginResponses?:LoginResponse[]
     productResponses?:ProductResponse[]
-    cityResponses?:CityResponse[]
-    
+    cityResponses?:CityResponse[]  
 }

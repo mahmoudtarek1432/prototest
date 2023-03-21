@@ -4,10 +4,9 @@ import { LoginRequest } from "src/app/models/login-request";
 import { LoginResponse } from "src/app/models/login-response";
 
 export class EndpointsSubjects{
-    subjectHandlers:{[requestId:number] : SubjectHandler<any>}; // to be changed
+    subjectHandlers:{[requestId:number] : SubjectHandler<any>} = {}; // to be changed
 
     constructor(){
-        this.subjectHandlers = {};
     }
 
     //gets created upon request, marks a request was fired

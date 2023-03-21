@@ -7,7 +7,7 @@ export abstract class EndpointsMap{
     static Map:{[k:string]: {new(subscriptions:EndpointsSubjects):IResponseEndpoint}} = {
 
     }
-    static CreateEndpoint<R extends IResponse,S extends IResponseEndpoint>(response :{new():IResponse}, endpoint :{new(subscriptions:EndpointsSubjects):S}){
+    static CreateEndpoint<R extends IResponse,S extends IResponseEndpoint>(response :{new():R}, endpoint :{new(subscriptions:EndpointsSubjects):S}){
         let responseName = response.name
         EndpointsMap.Map[responseName] = endpoint;
     }
