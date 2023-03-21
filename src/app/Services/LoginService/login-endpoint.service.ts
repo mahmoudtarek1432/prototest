@@ -12,7 +12,7 @@ import { EndpointsMap } from 'src/Shared/EnpointMap';
 })
 export class LoginEndpoint<R extends IResponse> implements IResponseEndpoint<R> {
   constructor(private endpointSubjects:EndpointsSubjects) {
-    EndpointsMap.CreateEndpoint(R,LoginEndpoint)
+    EndpointsMap.CreateEndpoint(R,LoginEndpoint) 
   }
   handle(responseObj: LoginResponse): void {
     this.endpointSubjects.updateSubject<LoginResponse>(responseObj.requestId!, responseObj);
