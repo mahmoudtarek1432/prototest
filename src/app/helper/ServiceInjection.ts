@@ -5,7 +5,7 @@ import { EndpointsSubjects } from "src/Shared/Endpoints-Subjects";
 
 
 /**
- * according to the incoming response id, the services gets injected : if decorated with injectable.
+ * Injects The dependencies in the constructor for Endpoint Services
  */
 export class ServiceInjection{
     static Create<T extends IResponseEndpoint>(Type:{new(subscriptions:EndpointsSubjects):T}): T{
