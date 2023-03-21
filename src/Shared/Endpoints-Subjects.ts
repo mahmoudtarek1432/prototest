@@ -29,6 +29,4 @@ export class EndpointsSubjects{
         throw Error("subject Not Found")
     }
 
-
-
 }

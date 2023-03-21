@@ -8,7 +8,7 @@ export class LoginRequest extends IRequest{
     awesomeType!: number;
 
     constructor(awesomeField:string, awesomeType: number){
-        super(1);
+        super();
         this.awesomeField = awesomeField;
         this.awesomeType = awesomeType;
     }
