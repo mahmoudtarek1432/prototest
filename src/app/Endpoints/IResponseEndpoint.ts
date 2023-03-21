@@ -1,6 +1,5 @@
 import { SubjectHandler } from "../helper/Subject-helper";
-import { IResponse } from "../models/IResponse";
 
-export interface IResponseEndpoint<R extends IResponse>{
+export interface IResponseEndpoint{
     handle(handleData:any):void;
 }
