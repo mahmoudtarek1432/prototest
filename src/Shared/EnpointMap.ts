@@ -12,7 +12,8 @@ export abstract class EndpointsMap{
 
     static CreateEndpoint<R extends IResponse,S extends IResponseEndpoint>(response :{new():R}, endpoint :{new(subscriptions:EndpointsSubjects):S}){
         let responseName = response.name
-        EndpointsMap.Map[responseName] = endpoint;
+        if(EndpointsMap.Map[responseName] == undefined)
+            EndpointsMap.Map[responseName] = endpoint;
     }
 
     static resolveEndpoint(responseName :string): {new(subscriptions:EndpointsSubjects):IResponseEndpoint}{

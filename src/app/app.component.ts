@@ -24,11 +24,13 @@ import { LoginService } from './Services/LoginService/login.service';
 })
 export class AppComponent{
   title = 'prototest';
-  constructor(testSubject: EndpointsSubjects){
-
+  constructor(private testSubject: EndpointsSubjects){
+    this.testSubject.createNewsubject<LoginResponse>(LoginEndpoint.name, new LoginResponse())
+    this.testSubject.getSubjectObservable(LoginEndpoint.name).subscribe((s)=>{console.log(s)})
+    
     websocketHelper.ReciveWebsocketMessage((message)=>{                                                               //case of auth endpoint
       let decoded = ProtoHelper.decode<EndpointResponses>("temp","endpoint","endpointResponse",message.data)
       decoded.then((EndpointResponse) => EndpointReciever.handle(EndpointResponse))
     })
   }
-  }
+}

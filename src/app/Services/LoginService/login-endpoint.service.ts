@@ -14,8 +14,10 @@ export class LoginEndpoint extends IResponseEndpoint{
   constructor(private endpointSubjects:EndpointsSubjects) {
     super(endpointSubjects)
     EndpointsMap.CreateEndpoint(LoginResponse,LoginEndpoint)
+    endpointSubjects.createNewsubject<LoginResponse>(LoginEndpoint.name, new LoginResponse())
+
   }
   handle(responseObj: LoginResponse): void {
-    this.endpointSubjects.updateSubject<LoginResponse>(responseObj.requestId!, responseObj);
+    this.endpointSubjects.updateSubject<LoginResponse>(LoginEndpoint.name, responseObj);
   }
 }

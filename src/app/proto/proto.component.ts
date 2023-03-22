@@ -3,8 +3,16 @@ import * as protobuf from 'protobufjs';
 import { AwesomeProto } from 'src/proto/AwesomeProto';
 import { ProtobufType } from 'src/ProtoWraper/ProtoBufType';
 import { ProtoWrapper } from 'src/ProtoWraper/protowrapper';
+import { EndpointsSubjects } from 'src/Shared/Endpoints-Subjects';
+import { EndpointsMap } from 'src/Shared/EnpointMap';
+import { EndpointReciever } from '../helper/EndpointHandler';
 import { ProtoHelper } from '../helper/proto-helper';
+import { ServiceInjection } from '../helper/ServiceInjection';
+import { ServiceInstancefactory } from '../helper/ServiceInstancefactory';
 import { Awesome } from '../models/awesome';
+import { EndpointResponses } from '../models/endpoint-responses';
+import { LoginResponse } from '../models/login-response';
+import { LoginEndpoint } from '../Services/LoginService/login-endpoint.service';
 
 
 @Component({
@@ -16,7 +24,8 @@ export class ProtoComponent {
 
   prototext!:any;
 
-  constructor(){
+  constructor(private testSubject: EndpointsSubjects){
+    this.testSubject.getSubjectObservable(LoginEndpoint.name).subscribe((s)=>{console.log(s)})
   }
 
   async encode2(){
@@ -41,9 +50,12 @@ export class ProtoComponent {
     wrapper.EncodeMessage(awesome)
     }
 
-  decode(){
-    
-    
+  test(){
+    let er = new EndpointResponses()
+    EndpointsMap.CreateEndpoint(LoginResponse,LoginEndpoint)
+    er.loginResponses = [new LoginResponse()]
+
+    EndpointReciever.handle(er)
   }
 
 

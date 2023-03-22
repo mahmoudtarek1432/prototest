@@ -9,6 +9,9 @@ import { EndpointsSubjects } from "src/Shared/Endpoints-Subjects";
  */
 export class ServiceInjection{
     static Create<T extends IResponseEndpoint>(Type:{new(subscriptions:EndpointsSubjects):T}): T{
-        return AppModule.injectorInstance.get(typeof Type,new Error("endpoint not found")) //depricated
+        let endpoint = AppModule.injectorInstance.get(Type,new Error("endpoint not found")); //depricated
+        if(endpoint === "endpoint not found")
+            throw endpoint
+        return endpoint;
     }
 }

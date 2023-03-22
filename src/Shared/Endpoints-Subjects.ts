@@ -7,18 +7,20 @@ import { LoginResponse } from "src/app/models/login-response";
  * class shall be passed as a dependency for providing a singleton instance
  */
 export class EndpointsSubjects{
-    subjectHandlers:{[requestId:number] : SubjectHandler<any>} = {};
+    subjectHandlers:{[Key:string] : SubjectHandler<any>} = {};
 
     //gets created upon request, marks a request was fired
-    createNewsubject<T>(requestId:number, subjectType:T){
-        this.subjectHandlers[requestId] = new SubjectHandler<T>(subjectType)
+    createNewsubject<T>(Key:string, subjectType:T){
+        let subject = this.subjectHandlers[Key];
+        if(subject == undefined)
+            this.subjectHandlers[Key] = new SubjectHandler<T>(subjectType)
     }
 
     /**
      * updates a subject, sends new message to subscribers according to the given requestId
      */
-    updateSubject<T>(requestId:number, subjectType:T){
-        let subject = this.subjectHandlers[requestId];
+    updateSubject<T>(Key:string, subjectType:T){
+        let subject = this.subjectHandlers[Key];
         if(subject == undefined)
             throw Error("subject Not Found")
         subject.updateSubject(subjectType)
@@ -27,10 +29,10 @@ export class EndpointsSubjects{
     /**
      * Returns an Observable of a generic type
      */
-    getSubjectObservable<T>(requestId:number): Observable<T>{
-        let subject = this.subjectHandlers[requestId];
+    getSubjectObservable<T>(Key:string): Observable<T>{
+        let subject = this.subjectHandlers[Key];
         if(subject)
-            return this.subjectHandlers[requestId].getSubjectObservable()
+            return this.subjectHandlers[Key].getSubjectObservable()
         throw Error("subject Not Found")
     }
 

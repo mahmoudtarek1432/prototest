@@ -12,6 +12,6 @@ export class LoginService {
   constructor(private endpointSubjects:EndpointsSubjects) { }
 
   AuthResponse(responseObj:LoginResponse){
-    this.endpointSubjects.updateSubject<LoginResponse>(responseObj.requestId!, responseObj);
+    //this.endpointSubjects.updateSubject<LoginResponse>(responseObj.requestId!, responseObj);
   }
 }
