@@ -1,4 +1,7 @@
+import { RequestEndpointResolver } from "../Endpoints/RequestEndpointResolver"
 import { EndpointResponses } from "../models/endpoint-responses"
+import { ResultCode} from '../models/result-code'
+import { ServiceInjection } from "./ServiceInjection"
 import { ServiceInstancefactory } from "./ServiceInstancefactory"
 
 
@@ -12,8 +15,10 @@ export class EndpointReciever{
               let propertyKey = propertyName as keyof typeof endpointRersponses        // typeof returns a class name as a string, further keyof assigns the propertyname string
               endpointRersponses[propertyKey]?.map((Response) => {                            // as a property of endpointResponse Class
                 //tb - check status for broadcast or request based event
-                let endpoint = ServiceInstancefactory.createInstance(Object.getPrototypeOf(Response).constructor); //returns an endpoint according to the passed response's prototype
-                endpoint.handle(Response); 
+                if(Response.resultCode == ResultCode["Subscribed"])
+                  ServiceInstancefactory.createInstance(Object.getPrototypeOf(Response).constructor).handle(Response);    //returns an endpoint according to the passed response's prototype
+                //request response endpoint
+                ServiceInjection.Create(RequestEndpointResolver).handle(Response);
               })
             })
         }

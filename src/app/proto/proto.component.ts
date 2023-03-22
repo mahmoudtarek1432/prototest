@@ -5,7 +5,7 @@ import { ProtobufType } from 'src/ProtoWraper/ProtoBufType';
 import { ProtoWrapper } from 'src/ProtoWraper/protowrapper';
 import { EndpointsSubjects } from 'src/Shared/Endpoints-Subjects';
 import { EndpointsMap } from 'src/Shared/EnpointMap';
-import { EndpointReciever } from '../helper/EndpointHandler';
+import { EndpointReciever } from '../helper/EndpointReciever';
 import { ProtoHelper } from '../helper/proto-helper';
 import { ServiceInjection } from '../helper/ServiceInjection';
 import { ServiceInstancefactory } from '../helper/ServiceInstancefactory';
