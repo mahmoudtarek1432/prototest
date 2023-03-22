@@ -1,4 +1,3 @@
-import { loginProto } from "src/proto/LoginProto"
 import { ProtobufType } from "src/ProtoWraper/ProtoBufType"
 import { IRequest } from "./IRequest"
 

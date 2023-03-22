@@ -13,9 +13,9 @@ export class ProtoWrapper<T extends ProtobufType>{
     callback function handels the protobuf.js library toolset such as encoding/decoding/create/verify */
     async protoFileAccessor(procedureCallback:(protomessage: protobuf.Type| undefined) => any):Promise<any>{
 
-        var buf = await protobuf.load(this.ProtobufType.filePath)
-        var msg = buf.lookupType(this.ProtobufType.ObjectLookupType)
-        return procedureCallback(msg)
+       // var buf = await protobuf.load(this.ProtobufType.filePath)
+        //var msg = buf.lookupType(this.ProtobufType.ObjectLookupType)
+        //return procedureCallback(msg)
     }
 
     verify(payload:{k : [string]}){

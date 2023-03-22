@@ -1,12 +1,12 @@
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, Observable, Subject } from "rxjs";
 import { IResponse } from "../models/IResponse";
 
 export class SubjectHandler<T>{
 
-    subject: BehaviorSubject<T>
+    subject: Subject<T>
 
     constructor(subjectObj:T){
-        this.subject = new BehaviorSubject(subjectObj)
+        this.subject = new (Subject)
     }
 
     getSubjectObservable():Observable<T>{

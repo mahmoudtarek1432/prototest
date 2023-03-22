@@ -5,21 +5,25 @@
  */
 export abstract class ProtobufType{
     /**Access string for protoObject used as an argument in the protobuf.load function*/
-    filePath!: string
+    filename!: string
 
     /**String passed will act as the proto message type
      * covention: "PackageName.MessageType"
     */
-    ObjectLookupType!: string
+    packageName!: string
+    className!: string
     /** 
      * @param filePath - Access string for protoObject used as an argument in the protobuf.load function
      * 
-     * @param ObjectLookupType - tring passed will act as the proto message type covention: "PackageName.MessageType"
+     * @param packageName - tring passed will act as the proto message type covention: "PackageName.MessageType"
      * */ 
     
-    constructor(filePath:string, ObjectLookupType:string){
-        this.filePath = filePath
-        this.ObjectLookupType = ObjectLookupType
+    constructor(filePath:string,
+        packageName: string,
+        className: string,){
+        this.filename = filePath
+        this.packageName = packageName
+        this.className = className
     }
 
     protobufTypeAccess():ProtobufType{

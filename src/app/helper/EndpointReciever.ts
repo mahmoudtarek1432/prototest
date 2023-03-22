@@ -15,10 +15,13 @@ export class EndpointReciever{
               let propertyKey = propertyName as keyof typeof endpointRersponses        // typeof returns a class name as a string, further keyof assigns the propertyname string
               endpointRersponses[propertyKey]?.map((Response) => {                            // as a property of endpointResponse Class
                 //tb - check status for broadcast or request based event
-                if(Response.resultCode == ResultCode["Subscribed"])
-                  ServiceInstancefactory.createInstance(Object.getPrototypeOf(Response).constructor).handle(Response);    //returns an endpoint according to the passed response's prototype
-                //request response endpoint
-                ServiceInjection.Create(RequestEndpointResolver).handle(Response);
+                let responseClassType = Object.getPrototypeOf(Response).constructor
+                if(Response.resultCode == ResultCode["Subscribed"]){
+                  ServiceInstancefactory.createInstance(responseClassType).handle(Response)
+                }
+                else{                                                               //returns an endpoint according to the passed response's prototype
+                  ServiceInjection.Create(RequestEndpointResolver).handle<typeof responseClassType>(Response);  //request response endpoint
+                }
               })
             })
         }

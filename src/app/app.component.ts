@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { EndpointsSubjects } from 'src/Shared/Endpoints-Subjects';
+import { EndpointsMap } from 'src/Shared/EnpointMap';
 import { EndpointReciever } from './helper/EndpointReciever';
 import { ProtoHelper } from './helper/proto-helper';
 import { websocketHelper } from './helper/WebsocketHelper';
@@ -15,9 +16,7 @@ import { LoginEndpoint } from './Services/LoginService/login-endpoint.service';
 export class AppComponent{
   title = 'prototest';
   constructor(private testSubject: EndpointsSubjects){
-    this.testSubject.createNewsubject<LoginResponse>(LoginEndpoint.name, new LoginResponse())
-    this.testSubject.getSubjectObservable(LoginEndpoint.name).subscribe((s)=>{console.log(s)})
-    
+    EndpointsMap.CreateEndpoint(LoginResponse,LoginEndpoint)
     websocketHelper.ReciveWebsocketMessage((message)=>{                                                               //case of auth endpoint
       let decoded = ProtoHelper.decode<EndpointResponses>("temp","endpoint","endpointResponse",message.data)
       decoded.then((EndpointResponse) => EndpointReciever.handle(EndpointResponse))

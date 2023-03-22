@@ -9,11 +9,10 @@ import { IResponseEndpoint } from './IResponseEndpoint';
 @Injectable({
   providedIn: 'root'
 })
-export class RequestEndpointResolver extends IResponseEndpoint {
+export class RequestEndpointResolver extends IResponseEndpoint<any> {
 
   constructor(private endpointSubjects: EndpointsSubjects) {
-    super(endpointSubjects);
-
+    super(endpointSubjects,LoginResponse);
    }
 
   handle<T extends IResponse>(responseObj: T){

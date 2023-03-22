@@ -12,7 +12,7 @@ export class ServiceInstancefactory{
     * @param responseType - takes a class instance that extends IResponse
     * @returns an object that extends IResponseEndpoint,     
     */
-    static createInstance<R extends IResponse>(reponseType: { new ():R}): IResponseEndpoint{
+    static createInstance<R extends IResponse>(reponseType: { new ():R}): IResponseEndpoint<IResponse>{
         let serviceType = EndpointsMap.resolveEndpoint(reponseType.name)
         return ServiceInjection.Create(serviceType)
     }
