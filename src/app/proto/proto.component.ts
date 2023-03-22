@@ -51,8 +51,8 @@ export class ProtoComponent {
     }
 
   test(){
-    let er = new EndpointResponses()
-    EndpointsMap.CreateEndpoint(LoginResponse,LoginEndpoint)
+    let er = new EndpointResponses()                          //from server after decoding
+    EndpointsMap.CreateEndpoint(LoginResponse,LoginEndpoint)  //need to fix
     er.loginResponses = [new LoginResponse()]
 
     EndpointReciever.handle(er)
