@@ -1,0 +1,48 @@
+package ResponsePackage;
+syntax = "proto3";
+
+message endpoint_responses {
+    repeated LoginResponse login_responses = 1;
+    repeated ProductResponse product_responses = 2;
+    repeated CityResponse city_responses = 3;
+}
+
+message LoginResponse{
+    int32 request_id = 1;
+    int32 result_code = 2;
+    string token = 3;
+    repeated error errors = 4;
+
+    message error{
+        string message = 1;
+    }
+}
+
+message ProductResponse{
+    int32 request_id = 1;
+    int32 result_code = 2;
+    repeated error errors = 3;
+
+    message error{
+        string message = 1;
+    }
+}
+
+message CityResponse{
+    int32 request_id = 1;
+    int32 result_code = 2;
+    repeated error errors = 3;
+
+    message error{
+        string message = 1;
+    }
+}
+message Response{
+    int32 request_id = 1;
+    int32 result_code = 2;
+    repeated error errors = 3;
+
+    message error{
+        string message = 1;
+    }
+}

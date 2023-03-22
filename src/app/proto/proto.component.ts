@@ -33,17 +33,14 @@ export class ProtoComponent {
   }
 
   async encode2(){
-    const awsomeData = new Awesome();
-    awsomeData.awesomeField = this.prototext;
-    let protoHelper = await ProtoHelper.encode('./assets/protos/webapi_3.proto', 'awesome_3', 'Awesome', awsomeData);
-    console.log(protoHelper);
-    console.log(ProtoHelper.toHexString(protoHelper));
+    let endpoint = this.buildendpoint()
+    this.prototext = await ProtoHelper.encode('./assets/protos/ResponseEndpoint.proto', 'ResponsePackage', 'endpoint_responses', endpoint);
   }
 
   async decode2(){
-    const bytes = ProtoHelper.fromHexString(this.prototext);
-    let protoHelper = await ProtoHelper.decode<Awesome>('./assets/protos/webapi_3.proto', 'awesome_3', 'Awesome', bytes);
-    console.log(protoHelper);
+    let x = await ProtoHelper.decode<EndpointResponses>('./assets/protos/ResponseEndpoint.proto', 'ResponsePackage', 'endpoint_responses', this.prototext);
+    console.log(this.buildendpoint())
+    console.log(x)
   }
 
 
@@ -61,9 +58,10 @@ export class ProtoComponent {
 
   async testRequestResponse(){
     //request
-    let x = await this.client.request<LoginResponse>(new EndpointRequests('./assets/protos/webapi_3.proto', 'awesome_3', 'Awesome'));
+    let type = new ProtobufType('./assets/protos/ResponseEndpoint.proto', 'ResponsePackage', 'endpoint_responses')
+    let x = await this.client.request<LoginResponse>(this.buildendpoint,type);
     x.subscribe((d) => console.log(d))
-    let y = await this.client.request<LoginResponse>(new EndpointRequests('./assets/protos/webapi_3.proto', 'awesome_3', 'Awesome'));
+    let y = await this.client.request<LoginResponse>(this.buildendpoint,type);
     y.subscribe((d) => console.log(d))
     //response
     let Endpoint = new EndpointResponses() 
@@ -93,9 +91,10 @@ export class ProtoComponent {
 
 
     //request
-    let x = await this.client.request<LoginResponse>(new EndpointRequests('./assets/protos/webapi_3.proto', 'awesome_3', 'Awesome'));
+    let type = new ProtobufType('./assets/protos/ResponseEndpoint.proto', 'ResponsePackage', 'endpoint_responses')
+    let x = await this.client.request<LoginResponse>(this.buildendpoint,type);
     x.subscribe((d) => console.log(d))
-    let y = await this.client.request<LoginResponse>(new EndpointRequests('./assets/protos/webapi_3.proto', 'awesome_3', 'Awesome'));
+    let y = await this.client.request<LoginResponse>(this.buildendpoint,type);
     y.subscribe((d) => console.log(d))
     //response
     let XEndpointLR = new LoginResponse()
@@ -121,5 +120,20 @@ export class ProtoComponent {
     var message = root?.lookupType("package.testingproto");
       callback(message);
     });
+  }
+
+  buildendpoint(){
+    let endpoint = new EndpointResponses()
+    let lr = new LoginResponse()
+    lr.requestId = 1
+    lr.resultCode = 200
+    lr.token = "dump"
+    let pr = new ProductResponse()
+    pr.requestId = 2
+    pr.resultCode = 211
+    pr.name = "test"
+    endpoint.loginResponses = [lr]
+    endpoint.productResponses = [pr]
+    return endpoint
   }
 }

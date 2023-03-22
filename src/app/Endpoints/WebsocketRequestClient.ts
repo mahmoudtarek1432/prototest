@@ -15,12 +15,12 @@ import { RequestIdHandler } from "./RequestIdHandler";
 export class WebsocketRequestClient implements IRequestEndpoint{
     constructor(private subject: EndpointsSubjects){
     }
-    async request<R>(request: EndpointRequests){ //tba
+    async request<R>(payload:object, ProtofileDetails: ProtobufType){ //tba
         let requestId = RequestIdHandler.generateRequestId();
         this.subject.createNewsubject(requestId,null);
         let requestSubject = this.subject.getSubjectObservable<R>(requestId)
         //send
-        let protoEncodedMessage = await ProtoHelper.encode(request.filename,request.packageName,request.className,request) //not tested
+        let protoEncodedMessage = await ProtoHelper.encode(ProtofileDetails.filename,ProtofileDetails.packageName,ProtofileDetails.className,payload) //not tested
         websocketHelper.SendWebsocketMessage(protoEncodedMessage)//not tested
         return requestSubject
     }
