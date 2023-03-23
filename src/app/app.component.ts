@@ -4,6 +4,7 @@ import { EndpointsMap } from 'src/Shared/EnpointMap';
 import { EndpointReciever } from './helper/EndpointReciever';
 import { ProtoHelper } from './helper/proto-helper';
 import { websocketHelper } from './helper/WebsocketHelper';
+import { EndpointRequests } from './models/endpoint-requests';
 import { EndpointResponses } from './models/endpoint-responses';
 import { LoginResponse } from './models/login-response';
 import { LoginEndpoint } from './Services/LoginService/login-endpoint.service';
@@ -18,9 +19,8 @@ export class AppComponent{
   constructor(private testSubject: EndpointsSubjects){
     EndpointsMap.CreateEndpoint(LoginResponse,LoginEndpoint)
     websocketHelper.ReciveWebsocketMessage((message)=>{       
-      console.log(message)                                                        //case of auth endpoint
-      let decoded = ProtoHelper.decode<EndpointResponses>('./assets/protos/ResponseEndpoint.proto', 'ResponsePackage', 'endpoint_responses',message.data)
+      let decoded = ProtoHelper.decode<EndpointResponses>('./assets/protos/ResponseEndpoint.proto', 'ResponsePackage', 'endpoint_responses',message.data);
       decoded.then((EndpointResponse) => EndpointReciever.handle(EndpointResponse))
-    })
+    });                                                  //case of auth endpoint
   }
 }

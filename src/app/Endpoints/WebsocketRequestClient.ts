@@ -24,4 +24,15 @@ export class WebsocketRequestClient implements IRequestEndpoint{
         websocketHelper.SendWebsocketMessage(protoEncodedMessage)//not tested
         return requestSubject
     }
+
+    async requestNoType<R>(payload:object){ //tba
+        let ProtofileDetails = new ProtobufType('./assets/protos/ResponseEndpoint.proto', 'ResponsePackage', 'endpoint_responses')
+        let requestId = RequestIdHandler.generateRequestId();
+        this.subject.createNewsubject(requestId,null);
+        let requestSubject = this.subject.getSubjectObservable<R>(requestId)
+        //send
+        let protoEncodedMessage = await ProtoHelper.encode(ProtofileDetails.filename,ProtofileDetails.packageName,ProtofileDetails.className,payload) //not tested
+        websocketHelper.SendWebsocketMessage(protoEncodedMessage)//not tested
+        return requestSubject
+    }
 }

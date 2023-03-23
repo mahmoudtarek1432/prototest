@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import * as protobuf from 'protobufjs';
+import { Observable } from 'rxjs';
 import { ProtobufType } from 'src/ProtoWraper/ProtoBufType';
 import { ProtoWrapper } from 'src/ProtoWraper/protowrapper';
 import { EndpointsSubjects } from 'src/Shared/Endpoints-Subjects';
@@ -10,12 +11,14 @@ import { ProtoHelper } from '../helper/proto-helper';
 import { ServiceInjection } from '../helper/ServiceInjection';
 import { ServiceInstancefactory } from '../helper/ServiceInstancefactory';
 import { Awesome } from '../models/awesome';
+import { CityResponse } from '../models/city-response';
 import { EndpointRequests } from '../models/endpoint-requests';
 import { EndpointResponses } from '../models/endpoint-responses';
 import { LoginResponse } from '../models/login-response';
 import { ProductResponse } from '../models/product-response';
 import { LoginEndpoint } from '../Services/LoginService/login-endpoint.service';
 import { LoginService } from '../Services/LoginService/login.service';
+import { RequestService } from '../Services/RequestService/request.service';
 
 
 @Component({
@@ -25,14 +28,20 @@ import { LoginService } from '../Services/LoginService/login.service';
 })
 export class ProtoComponent {
 
+  cityinfo: Observable<CityResponse> | undefined
   prototext!:any;
 
-  constructor(private loginService: LoginEndpoint,private client: WebsocketRequestClient){
-    this.loginService.SubscribeToBroadcast().subscribe((r) => console.log(r))
+  constructor(private loginService: LoginEndpoint,private requestService: RequestService){
+    this.loginService.SubscribeToBroadcast().subscribe((r) => console.log(r));
     
   }
 
-  async encode2(){
+  async getCityInfo(){
+    this.cityinfo = await this.requestService.GetCity(new CityResponse());
+  }
+}
+
+ /* async encode2(){
     let endpoint = this.buildendpoint()
     this.prototext = await ProtoHelper.encode('./assets/protos/ResponseEndpoint.proto', 'ResponsePackage', 'endpoint_responses', endpoint);
   }
@@ -42,9 +51,9 @@ export class ProtoComponent {
     console.log(this.buildendpoint())
     console.log(x)
   }
+*/
 
-
-
+/*
 
   TestBroadCast(){
     let er = new EndpointResponses()                          //from server after decoding
@@ -137,4 +146,4 @@ export class ProtoComponent {
     console.log(endpoint)
     return endpoint
   }
-}
+}*/
