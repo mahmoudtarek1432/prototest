@@ -15,6 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginService } from './Services/LoginService/login.service';
 import { EndpointsSubjects } from 'src/Shared/Endpoints-Subjects';
+import { ProtoRootInstance } from 'src/ProtoWraper/ProtoRootInstance';
+import { ProtobufType } from 'src/ProtoWraper/ProtoBufType';
 
 registerLocaleData(en);
 
@@ -34,6 +36,7 @@ registerLocaleData(en);
   ],
   providers: [
     EndpointsSubjects,
+    ProtoRootInstance,
     LoginService,
     { provide: NZ_I18N, useValue: en_US }
   ],
@@ -44,6 +47,7 @@ export class AppModule {
   static injectorInstance: Injector
   //static injector instantiated
   constructor(private DIinstance: Injector){
+    
     AppModule.injectorInstance = this.DIinstance
   }
 }

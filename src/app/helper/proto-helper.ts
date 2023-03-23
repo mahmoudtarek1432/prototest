@@ -20,7 +20,6 @@ export class ProtoHelper {
         const message = awesomeMessage?.fromObject(payload)!;
 
         const result = awesomeMessage?.encode(message).finish();
-        console.log(result?.toString())
         if (result) {
           resolve(result);
         } else {
