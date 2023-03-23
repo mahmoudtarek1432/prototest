@@ -59,9 +59,9 @@ export class ProtoComponent {
   async testRequestResponse(){
     //request
     let type = new ProtobufType('./assets/protos/ResponseEndpoint.proto', 'ResponsePackage', 'endpoint_responses')
-    let x = await this.client.request<LoginResponse>(this.buildendpoint,type);
+    let x = await this.client.request<LoginResponse>(this.buildendpoint(),type);
     x.subscribe((d) => console.log(d))
-    let y = await this.client.request<LoginResponse>(this.buildendpoint,type);
+    let y = await this.client.request<LoginResponse>(this.buildendpoint(),type);
     y.subscribe((d) => console.log(d))
     //response
     let Endpoint = new EndpointResponses() 
@@ -92,9 +92,9 @@ export class ProtoComponent {
 
     //request
     let type = new ProtobufType('./assets/protos/ResponseEndpoint.proto', 'ResponsePackage', 'endpoint_responses')
-    let x = await this.client.request<LoginResponse>(this.buildendpoint,type);
+    let x = await this.client.request<LoginResponse>(this.buildendpoint(),type);
     x.subscribe((d) => console.log(d))
-    let y = await this.client.request<LoginResponse>(this.buildendpoint,type);
+    let y = await this.client.request<LoginResponse>(this.buildendpoint(),type);
     y.subscribe((d) => console.log(d))
     //response
     let XEndpointLR = new LoginResponse()
@@ -134,6 +134,7 @@ export class ProtoComponent {
     pr.name = "test"
     endpoint.loginResponses = [lr]
     endpoint.productResponses = [pr]
+    console.log(endpoint)
     return endpoint
   }
 }

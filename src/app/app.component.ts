@@ -17,8 +17,9 @@ export class AppComponent{
   title = 'prototest';
   constructor(private testSubject: EndpointsSubjects){
     EndpointsMap.CreateEndpoint(LoginResponse,LoginEndpoint)
-    websocketHelper.ReciveWebsocketMessage((message)=>{                                                               //case of auth endpoint
-      let decoded = ProtoHelper.decode<EndpointResponses>("temp","endpoint","endpointResponse",message.data)
+    websocketHelper.ReciveWebsocketMessage((message)=>{       
+      console.log(message)                                                        //case of auth endpoint
+      let decoded = ProtoHelper.decode<EndpointResponses>('./assets/protos/ResponseEndpoint.proto', 'ResponsePackage', 'endpoint_responses',message.data)
       decoded.then((EndpointResponse) => EndpointReciever.handle(EndpointResponse))
     })
   }

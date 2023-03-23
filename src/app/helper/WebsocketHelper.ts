@@ -24,6 +24,9 @@ export class websocketHelper {
             return this.websocketPort;
         let socket = new WebSocket(Globals.wsUrl);
         this.websocketPort = socket
+        socket.onopen = ev => {
+            console.log(ev)
+        }
         return this.websocketPort;
     }
 
