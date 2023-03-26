@@ -6,13 +6,12 @@ import { ProtoWrapper } from "src/ProtoWraper/protowrapper";
 import { EndpointsSubjects } from "src/Shared/Endpoints-Subjects";
 import { websocketHelper } from "../helper/WebsocketHelper";
 import { EndpointRequests } from "../models/endpoint-requests";
-import { IRequestEndpoint } from "./IRequestEndpoint";
 import { RequestIdHandler } from "./RequestIdHandler";
 
 @Injectable({
     providedIn: 'root'
   })
-export class WebsocketRequestClient implements IRequestEndpoint{
+export class WebsocketRequestClient{
     constructor(private subject: EndpointsSubjects, private ProtoInstance: ProtoRootInstance){
     }
     async request<R>(payload:object){ //tba
