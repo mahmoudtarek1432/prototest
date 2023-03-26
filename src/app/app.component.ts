@@ -22,9 +22,9 @@ export class AppComponent implements OnInit{
     let type = new ProtobufType('./assets/protos/ResponseEndpoint.proto', 'ResponsePackage', 'endpoint_responses')
     this.protoInstance.instantiate(type).then(() =>
     {
-      let wrapper = new ProtoWrapper(this.protoInstance)
-    EndpointsMap.CreateEndpoint(LoginResponse,LoginEndpoint)
-    websocketHelper.ReciveWebsocketMessage((message)=>{       
+      let wrapper = new ProtoWrapper(this.protoInstance);
+      EndpointsMap.CreateEndpoint(LoginResponse,LoginEndpoint);
+      websocketHelper.ReciveWebsocketMessage((message)=>{       
       let decodedEndpointResponse = wrapper.Decode<EndpointResponses>(message.data)
       EndpointReciever.handle(decodedEndpointResponse)
     });           

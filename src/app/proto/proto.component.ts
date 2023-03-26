@@ -107,7 +107,7 @@ export class ProtoComponent {
     YEndpointLR.requestId = 2
     YEndpointLR.name = "response from 2"
 
-    er.loginResponses = [XEndpointLR,lr]
+    er.loginResponses = [XEndpointLR,lr,lr,XEndpointLR]
     er.productResponses = [YEndpointLR]
 
     EndpointReciever.handle(er)

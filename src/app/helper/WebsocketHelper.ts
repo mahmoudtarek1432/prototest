@@ -22,7 +22,7 @@ export class websocketHelper {
 
         if(this.websocketPort)
             return this.websocketPort;
-        let socket = new WebSocket("Globals.wsUrl");
+        let socket = new WebSocket(Globals.wsUrl);
         this.websocketPort = socket
         socket.onopen = ev => {
             console.log(ev)
