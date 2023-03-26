@@ -17,10 +17,6 @@ export class LoginEndpoint extends IResponseEndpoint<LoginResponse>{
   }
 
   handle(responseObj: LoginResponse): void {
-    let a = new Array(5000)
-    for(let x of a){
-      console.log(x)
-    }
     this.endpointSubjects.updateSubject<LoginResponse>(LoginEndpoint.name, responseObj);
   }
 }
