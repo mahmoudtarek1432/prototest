@@ -3,8 +3,8 @@ import { Observable, Subject } from 'rxjs';
 import { LoginRequest } from 'src/app/models/login-request';
 import { LoginResponse } from 'src/app/models/login-response';
 import { EndpointsSubjects } from 'src/Shared/Endpoints-Subjects';
-import { IResponse } from '../models/IResponse';
-import { IResponseEndpoint } from './IResponseEndpoint';
+import { IResponse } from '../../models/IResponse';
+import { IResponseEndpoint } from '../Interface/IResponseEndpoint';
 
 @Injectable({
   providedIn: 'root'

@@ -4,7 +4,7 @@ import { ProtobufType } from 'src/ProtoWraper/ProtoBufType';
 import { ProtoWrapper } from 'src/ProtoWraper/protowrapper';
 import { EndpointsSubjects } from 'src/Shared/Endpoints-Subjects';
 import { EndpointsMap } from 'src/Shared/EnpointMap';
-import { WebsocketRequestClient } from '../Endpoints/WebsocketRequestClient';
+import { WebsocketRequestClient } from '../Endpoints/Implementation/WebsocketRequestClient';
 import { EndpointReciever } from '../helper/EndpointReciever';
 import { ProtoHelper } from '../helper/proto-helper';
 import { ServiceInjection } from '../helper/ServiceInjection';
@@ -59,9 +59,9 @@ export class ProtoComponent {
   async testRequestResponse(){
     //request
     let type = new ProtobufType('./assets/protos/ResponseEndpoint.proto', 'ResponsePackage', 'endpoint_responses')
-    let x = await this.client.request<LoginResponse>(this.buildendpoint());
+    let x = await this.client.requestNoType<LoginResponse>(this.buildendpoint());
     x.subscribe((d) => console.log(d))
-    let y = await this.client.request<LoginResponse>(this.buildendpoint());
+    let y = await this.client.requestNoType<LoginResponse>(this.buildendpoint());
     y.subscribe((d) => console.log(d))
     //response
     let Endpoint = new EndpointResponses() 

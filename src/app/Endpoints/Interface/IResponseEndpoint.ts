@@ -1,9 +1,9 @@
 import { Observable, Subject } from "rxjs";
 import { EndpointsSubjects } from "src/Shared/Endpoints-Subjects";
 import { EndpointsMap } from "src/Shared/EnpointMap";
-import { SubjectHandler } from "../helper/Subject-helper";
-import { IResponse } from "../models/IResponse";
-import { RequestIdHandler } from "./RequestIdHandler";
+import { SubjectHandler } from "../../helper/Subject-helper";
+import { IResponse } from "../../models/IResponse";
+import { RequestIdHandler } from "../../helper/RequestIdHandler";
 
 export abstract class IResponseEndpoint<R extends IResponse>{
     constructor(private subject: EndpointsSubjects,responseType: {new():R}){
