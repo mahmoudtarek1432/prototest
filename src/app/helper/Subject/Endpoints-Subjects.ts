@@ -1,6 +1,5 @@
 import { BehaviorSubject, Observable } from "rxjs";
-import { SubjectHandler } from "src/app/helper/Subject-helper";
-import { LoginRequest } from "src/app/models/login-request";
+import { SubjectHandler } from "src/app/helper/Subject/Subject-helper";
 import { LoginResponse } from "src/app/models/login-response";
 
 /**

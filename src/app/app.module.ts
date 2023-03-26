@@ -13,10 +13,9 @@ import en from '@angular/common/locales/en';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoginService } from './Services/LoginService/login.service';
-import { EndpointsSubjects } from 'src/Shared/Endpoints-Subjects';
-import { ProtoRootInstance } from 'src/ProtoWraper/ProtoRootInstance';
-import { ProtobufType } from 'src/ProtoWraper/ProtoBufType';
+import { EndpointsSubjects } from 'src/app/helper/Subject/Endpoints-Subjects';
+import { ProtoRootInstance } from 'src/app/helper/Protobuf/ProtoRootInstance';
+import { ProtobufType } from 'src/app/helper/Protobuf/ProtoBufType';
 
 registerLocaleData(en);
 
@@ -37,7 +36,6 @@ registerLocaleData(en);
   providers: [
     EndpointsSubjects,
     ProtoRootInstance,
-    LoginService,
     { provide: NZ_I18N, useValue: en_US }
   ],
   bootstrap: [AppComponent]

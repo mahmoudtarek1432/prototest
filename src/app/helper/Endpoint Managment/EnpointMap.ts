@@ -1,7 +1,6 @@
-import { IResponseEndpoint } from "src/app/Endpoints/IResponseEndpoint";
-import { SubjectHandler } from "src/app/helper/Subject-helper";
-import { IResponse } from "src/app/models/IResponse";
-import { EndpointsSubjects } from "./Endpoints-Subjects";
+import { IResponseEndpoint } from "src/app/Endpoints/Interface/IResponseEndpoint";
+import { IResponse } from "src/app/helper/Endpoint Managment/model/IResponse";
+import { EndpointsSubjects } from "../Subject/Endpoints-Subjects";
 
 /**
  * handles the Response - ResponseEndpoint Mapping, mainly used for broadcasting

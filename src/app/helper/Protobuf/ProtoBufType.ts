@@ -18,7 +18,7 @@ export class ProtobufType{
      * @param packageName - tring passed will act as the proto message type covention: "PackageName.MessageType"
      * */ 
     
-    constructor(filePath:string,packageName: string,className: string){
+    constructor(filePath:string, packageName: string, className: string){
         this.filename = filePath
         this.packageName = packageName
         this.className = className

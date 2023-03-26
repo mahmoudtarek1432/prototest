@@ -1,9 +1,7 @@
 import { ServiceInjection } from "./ServiceInjection";
-import { IResponseEndpoint } from "../Endpoints/IResponseEndpoint";
-import { EndpointsMap } from "src/Shared/EnpointMap";
-import { IResponse } from "../models/IResponse";
-import { IRequest } from "../models/IRequest";
-import { SubjectHandler } from "./Subject-helper";
+import { EndpointsMap } from "src/app/helper/Endpoint Managment/EnpointMap";
+import { IResponse } from "src/app/helper/Endpoint Managment/model/IResponse"; 
+import { IResponseEndpoint } from "src/app/Endpoints/Interface/IResponseEndpoint";
 
 
 export class ServiceInstancefactory{

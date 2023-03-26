@@ -1,36 +1,25 @@
 import { Injectable } from "@angular/core";
-import { Subject } from "rxjs";
-import { ProtobufType } from "src/ProtoWraper/ProtoBufType";
-import { ProtoWrapper } from "src/ProtoWraper/protowrapper";
-import { EndpointsSubjects } from "src/Shared/Endpoints-Subjects";
-import { ProtoHelper } from "../../helper/proto-helper";
-import { websocketHelper } from "../../helper/WebsocketHelper";
-import { EndpointRequests } from "../../models/endpoint-requests";
-import { RequestIdHandler } from "../../helper/RequestIdHandler";
+import { ProtoWrapper } from "src/app/helper/Protobuf/protowrapper";
+import { EndpointsSubjects } from "src/app/helper/Subject/Endpoints-Subjects";
+import { websocketHelper } from "../../helper/Websocket/WebsocketHelper";
+import { RequestIdHandler } from "../../helper/Subject/RequestIdHandler";
+import { ProtoRootInstance } from "src/app/helper/Protobuf/ProtoRootInstance";
+import { IResponse } from "src/app/helper/Endpoint Managment/model/IResponse";
+import { IRequest } from "src/app/helper/Endpoint Managment/model/IRequest";
 
 @Injectable({
     providedIn: 'root'
   })
-export class WebsocketRequestClient{
-    constructor(private subject: EndpointsSubjects){
+  export class WebsocketRequestClient{
+    constructor(private subject: EndpointsSubjects, private ProtoInstance: ProtoRootInstance){
     }
-    async request<R>(payload:object, ProtofileDetails: ProtobufType){ //tba
+    request<Res extends IResponse>(payload: IRequest){ //tba
         let requestId = RequestIdHandler.generateRequestId();
         this.subject.createNewsubject(requestId,null);
-        let requestSubject = this.subject.getSubjectObservable<R>(requestId)
+        let requestSubject = this.subject.getSubjectObservable<Res>(requestId)
         //send
-        let protoEncodedMessage = await ProtoHelper.encode(ProtofileDetails.filename,ProtofileDetails.packageName,ProtofileDetails.className,payload) //not tested
-        websocketHelper.SendWebsocketMessage(protoEncodedMessage)//not tested
-        return requestSubject
-    }
-
-    async requestNoType<R>(payload:object){ //tba
-        let ProtofileDetails = new ProtobufType('./assets/protos/ResponseEndpoint.proto', 'ResponsePackage', 'endpoint_responses')
-        let requestId = RequestIdHandler.generateRequestId();
-        this.subject.createNewsubject(requestId,null);
-        let requestSubject = this.subject.getSubjectObservable<R>(requestId)
-        //send
-        let protoEncodedMessage = await ProtoHelper.encode(ProtofileDetails.filename,ProtofileDetails.packageName,ProtofileDetails.className,payload) //not tested
+        let ProtoBufWrapper = new ProtoWrapper(this.ProtoInstance);
+        let protoEncodedMessage = ProtoBufWrapper.EncodeMessage(payload)
         websocketHelper.SendWebsocketMessage(protoEncodedMessage)//not tested
         return requestSubject
     }

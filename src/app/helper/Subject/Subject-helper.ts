@@ -1,5 +1,5 @@
 import { BehaviorSubject, Observable, Subject } from "rxjs";
-import { IResponse } from "../models/IResponse";
+import { IResponse } from "../Endpoint Managment/model/IResponse";
 
 export class SubjectHandler<T>{
 

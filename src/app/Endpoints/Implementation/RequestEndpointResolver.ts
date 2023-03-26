@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { LoginRequest } from 'src/app/models/login-request';
 import { LoginResponse } from 'src/app/models/login-response';
-import { EndpointsSubjects } from 'src/Shared/Endpoints-Subjects';
-import { IResponse } from '../../models/IResponse';
+import { EndpointsSubjects } from 'src/app/helper/Subject/Endpoints-Subjects';
+import { IResponse } from '../../helper/Endpoint Managment/model/IResponse';
 import { IResponseEndpoint } from '../Interface/IResponseEndpoint';
 
 @Injectable({
@@ -15,7 +14,7 @@ export class RequestEndpointResolver extends IResponseEndpoint<any> {
     super(endpointSubjects,LoginResponse);
    }
 
-  handle<T extends IResponse>(responseObj: T){
-    this.endpointSubjects.updateSubject<T>(responseObj.requestId.toString(), responseObj);
+  override handle(responseObj: any){
+    this.endpointSubjects.updateSubject<typeof responseObj>(responseObj.requestId.toString(), responseObj);
   }
 }

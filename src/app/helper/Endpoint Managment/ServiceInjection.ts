@@ -1,8 +1,7 @@
-import { AppModule } from "../app.module";
-import { LoginService } from "../Services/LoginService/login.service";
-import { IResponseEndpoint } from "../Endpoints/IResponseEndpoint";
-import { EndpointsSubjects } from "src/Shared/Endpoints-Subjects";
-import { IResponse } from "../models/IResponse";
+import { AppModule } from "src/app/app.module";
+import { IResponseEndpoint } from "src/app/Endpoints/Interface/IResponseEndpoint";
+import { IResponse } from "src/app/helper/Endpoint Managment/model/IResponse";
+import { EndpointsSubjects } from "src/app/helper/Subject/Endpoints-Subjects";
 
 
 /**

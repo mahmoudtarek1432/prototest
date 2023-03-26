@@ -1,21 +1,12 @@
 import { Component } from '@angular/core';
 import * as protobuf from 'protobufjs';
-import { ProtobufType } from 'src/ProtoWraper/ProtoBufType';
-import { ProtoWrapper } from 'src/ProtoWraper/protowrapper';
-import { EndpointsSubjects } from 'src/Shared/Endpoints-Subjects';
-import { EndpointsMap } from 'src/Shared/EnpointMap';
 import { WebsocketRequestClient } from '../Endpoints/Implementation/WebsocketRequestClient';
-import { EndpointReciever } from '../helper/EndpointReciever';
-import { ProtoHelper } from '../helper/proto-helper';
-import { ServiceInjection } from '../helper/ServiceInjection';
-import { ServiceInstancefactory } from '../helper/ServiceInstancefactory';
-import { Awesome } from '../models/awesome';
-import { EndpointRequests } from '../models/endpoint-requests';
+import { EndpointReciever } from '../helper/Endpoint Managment/EndpointReciever';
+import { ProtoHelper } from '../helper/Protobuf/proto-helper';
 import { EndpointResponses } from '../models/endpoint-responses';
 import { LoginResponse } from '../models/login-response';
 import { ProductResponse } from '../models/product-response';
 import { LoginEndpoint } from '../Services/LoginService/login-endpoint.service';
-import { LoginService } from '../Services/LoginService/login.service';
 
 
 @Component({
@@ -58,10 +49,9 @@ export class ProtoComponent {
 
   async testRequestResponse(){
     //request
-    let type = new ProtobufType('./assets/protos/ResponseEndpoint.proto', 'ResponsePackage', 'endpoint_responses')
-    let x = await this.client.requestNoType<LoginResponse>(this.buildendpoint());
+    let x = await this.client.request<LoginResponse>(this.buildendpoint());
     x.subscribe((d) => console.log(d))
-    let y = await this.client.requestNoType<LoginResponse>(this.buildendpoint());
+    let y = await this.client.request<LoginResponse>(this.buildendpoint());
     y.subscribe((d) => console.log(d))
     //response
     let Endpoint = new EndpointResponses() 
