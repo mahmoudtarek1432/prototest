@@ -22,7 +22,7 @@ export class ProtoComponent {
     this.loginService.SubscribeToBroadcast().subscribe((r) => console.log(r))
     
   }
-
+/*
   async encode2(){
     let endpoint = this.buildendpoint()
     this.prototext = await ProtoHelper.encode('./assets/protos/ResponseEndpoint.proto', 'ResponsePackage', 'endpoint_responses', endpoint);
@@ -125,5 +125,5 @@ export class ProtoComponent {
     endpoint.loginResponses = [lr]
     endpoint.productResponses = [pr]
     return endpoint
-  }
+  }*/
 }

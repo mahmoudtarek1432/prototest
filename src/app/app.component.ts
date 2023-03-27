@@ -19,11 +19,18 @@ import { LoginEndpoint } from './Services/LoginService/login-endpoint.service';
 export class AppComponent implements OnInit{
   title = 'prototest';
   constructor( private protoInstance: ProtoRootInstance){
-    let type = new ProtobufType('./assets/protos/ResponseEndpoint.proto', 'ResponsePackage', 'endpoint_responses')
+    const file = "message product_response {\
+      int32 token =  1;\
+      string name =  2;\
+      repeated int32 list =  3;\ }"
+
+      protoInstance.addProto(file)
+    
+   /* let type = new ProtobufType('./assets/protos/ResponseEndpoint.proto', 'ResponsePackage', 'endpoint_responses')
     this.protoInstance.instantiate(type).then(() =>
     {
                  
-    })
+    })*/
   }
   async ngOnInit() {
    

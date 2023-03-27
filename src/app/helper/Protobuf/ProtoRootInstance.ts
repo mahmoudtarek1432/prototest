@@ -1,5 +1,6 @@
 import * as protobuf from "protobufjs";
 import { ProtobufType } from "./ProtoBufType";
+import { ProtoFileStringManipulation } from "./ProtoFileStringManipulation";
 
 export class ProtoRootInstance{
     protoRoot!: protobuf.Type
@@ -12,21 +13,13 @@ export class ProtoRootInstance{
     }
 
     addProto(protoFile:string){
-        let messageName = ""
-        let firstChar = protoFile.indexOf("message ")+1;
+        let messageName = ProtoFileStringManipulation.ExtractMessageName(protoFile)
 
-
-        //extract message name
-        for (let i = firstChar; i < protoFile.length; i++){
-            if(protoFile[i] == " " || protoFile[i] == "{"){ //first encountered after message name
-                break;
-            }
-            messageName = messageName + protoFile[i]
-        }
+        let ExtendedProtoFile = ProtoFileStringManipulation.ConvertProtofile(protoFile,"response")
 
         let fileDetails = new ProtoDetails();
         fileDetails.messageName = messageName;
-        fileDetails.protoFileBody = protoFile;
+        fileDetails.protoFileBody = ExtendedProtoFile;
 
         ProtoRootInstance.protoMessageFiles.push(fileDetails)
     }
@@ -35,11 +28,16 @@ export class ProtoRootInstance{
     buildEndpoint(){
         let endpoint ="syntax = \"proto3\";\
                        package Endpoint;\
-                       message endpoint_temp{"
+                       message endpoint_temp{\ "
 
                        //push messages from array
+            ProtoRootInstance.protoMessageFiles.forEach((file,i) =>{
+                endpoint = endpoint + `repeated ${file.messageName} UnderTestForNow = ${i};\ `
+            })
 
-                       +"}";
+
+
+        endpoint = endpoint + "}";
                         
                     
     }

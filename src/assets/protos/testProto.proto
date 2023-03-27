@@ -1,0 +1,1 @@
+syntax = "proto3";                    package Endpoint; message product_response {      int32 request_id = 1;      int32 result_code = 2;      repeated error errors = 3; }
