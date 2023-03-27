@@ -22,9 +22,13 @@ export class AppComponent implements OnInit{
     const file = "message product_response {\
       int32 token =  1;\
       string name =  2;\
-      repeated int32 list =  3;\ }"
+      repeated int32 list =  3;\  }"
 
-      protoInstance.addProto(file)
+      protoInstance.addProtoEndpoint(file,"request")
+      protoInstance.addProtoEndpoint(file,"response")
+      protoInstance.addProtoEndpoint(file,"request")
+
+      console.log(protoInstance.buildEndpoint());
     
    /* let type = new ProtobufType('./assets/protos/ResponseEndpoint.proto', 'ResponsePackage', 'endpoint_responses')
     this.protoInstance.instantiate(type).then(() =>

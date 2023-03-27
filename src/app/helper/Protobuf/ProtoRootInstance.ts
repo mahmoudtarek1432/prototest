@@ -12,10 +12,10 @@ export class ProtoRootInstance{
         this.protoRoot = buf.lookupType(`${prototype.packageName}.${prototype.className}`)
     }
 
-    addProto(protoFile:string){
+    addProtoEndpoint(protoFile:string, type: "request" | "response"){
         let messageName = ProtoFileStringManipulation.ExtractMessageName(protoFile)
 
-        let ExtendedProtoFile = ProtoFileStringManipulation.ConvertProtofile(protoFile,"response")
+        let ExtendedProtoFile = ProtoFileStringManipulation.ConvertProtofile(protoFile,type)
 
         let fileDetails = new ProtoDetails();
         fileDetails.messageName = messageName;
@@ -28,7 +28,7 @@ export class ProtoRootInstance{
     buildEndpoint(){
         let endpoint ="syntax = \"proto3\";\
                        package Endpoint;\
-                       message endpoint_temp{\ "
+                       message RequestEndpoints{\ "
 
                        //push messages from array
             ProtoRootInstance.protoMessageFiles.forEach((file,i) =>{
@@ -39,7 +39,7 @@ export class ProtoRootInstance{
 
         endpoint = endpoint + "}";
                         
-                    
+        return endpoint;        
     }
 }
 
