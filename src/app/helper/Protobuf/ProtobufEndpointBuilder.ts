@@ -2,7 +2,8 @@ import { EndpointType, ProtoFileStringManipulation } from "./ProtoFileStringMani
 
 export class ProtobufEndpointBuilder{
 
-    private  static protoMessageFiles: Array<ProtoDetails> = new Array<ProtoDetails>()
+    private  static protoResponseFiles: Array<ProtoDetails> = new Array<ProtoDetails>()
+    private  static protoRequestFiles: Array<ProtoDetails> = new Array<ProtoDetails>()
 
     static addProtoEndpoint(protoFile:string, type: EndpointType){
         let messageName = ProtoFileStringManipulation.ExtractMessageName(protoFile)
@@ -13,28 +14,49 @@ export class ProtobufEndpointBuilder{
         fileDetails.messageName = messageName;
         fileDetails.protoFileBody = ExtendedProtoFile;
 
-        ProtobufEndpointBuilder.protoMessageFiles.push(fileDetails)
+        switch(type){
+            case EndpointType.request:
+                ProtobufEndpointBuilder.protoRequestFiles.push(fileDetails)
+                break;
+            case EndpointType.response:
+                ProtobufEndpointBuilder.protoResponseFiles.push(fileDetails)
+                break;
+        }
+        ProtobufEndpointBuilder.protoResponseFiles.push(fileDetails)
     }
 
     /// there shall be a response endpoint and request endpoint
-    static buildEndpoint(){
+    static buildResponseEndpoint(){
         let endpoint ="syntax = \"proto3\";\
                        package Endpoint;\
-                       message RequestEndpoints {\ " 
-                       +"int32 dummy_test = 2;"
+                       message ResponseEndpoints {\ " 
         //push messages from array
-        this.protoMessageFiles.forEach((file,i) =>{
+        this.protoResponseFiles.forEach((file,i) =>{
             let FieldName = ProtoFileStringManipulation.configureMessageName(file.messageName)+"s"
             endpoint = endpoint + `repeated ${file.messageName} ${FieldName} = ${i+1};\ `
         })
-        this.protoMessageFiles.forEach((details) =>{
+        this.protoResponseFiles.forEach((details) =>{
             endpoint = endpoint + details.protoFileBody + '\ '
         })
 
-        endpoint = endpoint + " }\ ";
+        endpoint = endpoint + " }\ ";             
+        return endpoint;        
+    }
 
+    static buildRequestEndpoint(){
+        let endpoint ="syntax = \"proto3\";\
+                       package Endpoint;\
+                       message RequestEndpoints {\ " 
+        //push messages from array
+        this.protoRequestFiles.forEach((file,i) =>{
+            let FieldName = ProtoFileStringManipulation.configureMessageName(file.messageName)+"s"
+            endpoint = endpoint + `repeated ${file.messageName} ${FieldName} = ${i+1};\ `
+        })
+        this.protoRequestFiles.forEach((details) =>{
+            endpoint = endpoint + details.protoFileBody + '\ '
+        })
 
-                        
+        endpoint = endpoint + " }\ ";             
         return endpoint;        
     }
 }
