@@ -2,9 +2,9 @@ import { EndpointType, ProtoFileStringManipulation } from "./ProtoFileStringMani
 
 export class ProtobufEndpointBuilder{
 
-    private protoMessageFiles: Array<ProtoDetails> = new Array<ProtoDetails>()
+    private  static protoMessageFiles: Array<ProtoDetails> = new Array<ProtoDetails>()
 
-    addProtoEndpoint(protoFile:string, type: EndpointType){
+    static addProtoEndpoint(protoFile:string, type: EndpointType){
         let messageName = ProtoFileStringManipulation.ExtractMessageName(protoFile)
 
         let ExtendedProtoFile = ProtoFileStringManipulation.ConvertProtofile(protoFile,type)
@@ -13,14 +13,15 @@ export class ProtobufEndpointBuilder{
         fileDetails.messageName = messageName;
         fileDetails.protoFileBody = ExtendedProtoFile;
 
-        this.protoMessageFiles.push(fileDetails)
+        ProtobufEndpointBuilder.protoMessageFiles.push(fileDetails)
     }
 
     /// there shall be a response endpoint and request endpoint
-    buildEndpoint(){
+    static buildEndpoint(){
         let endpoint ="syntax = \"proto3\";\
                        package Endpoint;\
                        message RequestEndpoints {\ " 
+                       +"int32 dummy_test = 2;"
         //push messages from array
         this.protoMessageFiles.forEach((file,i) =>{
             let FieldName = ProtoFileStringManipulation.configureMessageName(file.messageName)+"s"

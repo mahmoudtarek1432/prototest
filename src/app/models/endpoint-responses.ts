@@ -12,5 +12,5 @@ export class EndpointResponses {
 
 export class RequestEndpoints{
     productresponses?:ProductResponse[]
-    dummy?: number
+    dummyTest?: number
 }

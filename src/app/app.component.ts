@@ -21,18 +21,18 @@ import { ProductResponse } from './models/product-response';
 })
 export class AppComponent implements OnInit{
   title = 'prototest';
-  constructor( private protoInstance: ProtoRootInstance, private protoEndpointBuilder: ProtobufEndpointBuilder){
+  constructor( private protoInstance: ProtoRootInstance){
     const file = "message ProductResponse {\
       int32 token =  1;\
       string name =  2;\
       repeated int32 list =  3;\  }"
 
-     protoEndpointBuilder.addProtoEndpoint(file,EndpointType.request)
+      ProtobufEndpointBuilder.addProtoEndpoint(file,EndpointType.request)
 
-      console.log(protoEndpointBuilder.buildEndpoint())
+      console.log(ProtobufEndpointBuilder.buildEndpoint())
 
       var root = new proto.Root();
-      proto.parse(protoEndpointBuilder.buildEndpoint(), root, { keepCase: true, alternateCommentMode: false, preferTrailingComment: false });
+      proto.parse(ProtobufEndpointBuilder.buildEndpoint(), root, { keepCase: true, alternateCommentMode: false, preferTrailingComment: false });
       root.resolveAll();
 
       var protoType = root.lookupType("Endpoint.RequestEndpoints")
@@ -45,6 +45,7 @@ export class AppComponent implements OnInit{
 
       let ed = new RequestEndpoints()
       ed.productresponses = [pr]
+      ed.dummyTest = 1
       let c = protoType.create(ed)
       console.log(c)
       let e = protoType.encode(c).finish()
@@ -70,14 +71,4 @@ export class AppComponent implements OnInit{
   async ngOnInit() {
    
   }
-
- 
 }
- class AwesomeMessage {
-  awesomefield?: string
-  awesomevalue?: number
-  t?: test
-  }
-  class test{
-    write?:string
-  }
