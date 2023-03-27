@@ -29,25 +29,37 @@ export class AppComponent implements OnInit{
 
      protoEndpointBuilder.addProtoEndpoint(file,EndpointType.request)
 
+      console.log(protoEndpointBuilder.buildEndpoint())
+
       var root = new proto.Root();
       proto.parse(protoEndpointBuilder.buildEndpoint(), root, { keepCase: true, alternateCommentMode: false, preferTrailingComment: false });
       root.resolveAll();
 
-      let x = root.lookupType("Endpoint.RequestEndpoints");
-      
-      let pr = new ProductResponse();
+      var protoType = root.lookupType("Endpoint.RequestEndpoints")
+
+      let pr = new ProductResponse()
       pr.requestId = 2
       pr.name = "am alive"
       pr.resultCode = 200
       pr.list = [1,2,3]
 
       let ed = new RequestEndpoints()
-      ed.productResponses = [pr]
-
-      let e = x.encode(ed).finish()
+      ed.productresponses = [pr]
+      let c = protoType.create(ed)
+      console.log(c)
+      let e = protoType.encode(c).finish()
       console.log(e)
-      let d = x.decode(e).toJSON()
+      let d = protoType.decode(e).toJSON()
       console.log(d)
+
+      var look = proto.load("./assets/protos/testProto.proto",(err,t) =>{
+        var m = t!.lookupType("Endpoint.RequestEndpoints")
+        let c = protoType.create(ed)
+        let e = m.encode(ed).finish()
+        console.log(e)
+        let d = m.decode(e).toJSON()
+        console.log(d)
+      })
     
    /* let type = new ProtobufType('./assets/protos/ResponseEndpoint.proto', 'ResponsePackage', 'endpoint_responses')
     this.protoInstance.instantiate(type).then(() =>
@@ -58,4 +70,14 @@ export class AppComponent implements OnInit{
   async ngOnInit() {
    
   }
+
+ 
 }
+ class AwesomeMessage {
+  awesomefield?: string
+  awesomevalue?: number
+  t?: test
+  }
+  class test{
+    write?:string
+  }

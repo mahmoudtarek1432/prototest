@@ -20,19 +20,17 @@ export class ProtobufEndpointBuilder{
     buildEndpoint(){
         let endpoint ="syntax = \"proto3\";\
                        package Endpoint;\
-                       message RequestEndpoints{\ "
-
+                       message RequestEndpoints {\ " 
         //push messages from array
         this.protoMessageFiles.forEach((file,i) =>{
             let FieldName = ProtoFileStringManipulation.configureMessageName(file.messageName)+"s"
             endpoint = endpoint + `repeated ${file.messageName} ${FieldName} = ${i+1};\ `
         })
-
         this.protoMessageFiles.forEach((details) =>{
             endpoint = endpoint + details.protoFileBody + '\ '
         })
 
-        endpoint = endpoint + "}\ ";
+        endpoint = endpoint + " }\ ";
 
 
                         

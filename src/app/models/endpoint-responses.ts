@@ -11,5 +11,6 @@ export class EndpointResponses {
 }
 
 export class RequestEndpoints{
-    productResponses?:ProductResponse[]
+    productresponses?:ProductResponse[]
+    dummy?: number
 }
