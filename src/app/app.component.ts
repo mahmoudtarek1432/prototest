@@ -22,6 +22,15 @@ import { ProductResponse } from './models/product-response';
 export class AppComponent implements OnInit{
   title = 'prototest';
   constructor( private protoInstance: ProtoRootInstance){
+    
+    
+    this.protoInstance.instantiate()
+  }
+  async ngOnInit() {
+   
+  }
+
+  test(){
     const file = "message ProductResponse {\
       int32 token =  1;\
       string name =  2;\
@@ -61,14 +70,5 @@ export class AppComponent implements OnInit{
         let d = m.decode(e).toJSON()
         console.log(d)
       })
-    
-   /* let type = new ProtobufType('./assets/protos/ResponseEndpoint.proto', 'ResponsePackage', 'endpoint_responses')
-    this.protoInstance.instantiate(type).then(() =>
-    {
-                 
-    })*/
-  }
-  async ngOnInit() {
-   
   }
 }

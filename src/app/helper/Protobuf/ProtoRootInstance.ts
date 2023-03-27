@@ -4,19 +4,22 @@ import { ProtobufType } from "./ProtoBufType";
 import { ProtoFileStringManipulation } from "./ProtoFileStringManipulation";
 
 export class ProtoRootInstance{
-    protoRoot!: protobuf.Type
+    Type!: protobuf.Type
 
     constructor(){
 
     }
 
-    async instantiate(prototype: ProtobufType):Promise<any>{
+    instantiate(){
 
+        this.Type = this.buildType().lookupType("Endpoint.RequestEndpoints")
+        return this.Type;
+    }
+
+    buildType(){
         let protoroot = new protobuf.Root();
         protobuf.parse(ProtobufEndpointBuilder.buildEndpoint(), protoroot, { keepCase: true, alternateCommentMode: false, preferTrailingComment: false });
         protoroot.resolveAll();
-        this.protoRoot = protoroot.lookupType("Endpoint.RequestEndpoints")
-    }
-
-    
+        return protoroot
+    }    
 }
