@@ -28,7 +28,13 @@ export class ProtobufEndpointBuilder{
             endpoint = endpoint + `repeated ${file.messageName} ${FieldName} = ${i+1};\ `
         })
 
-        endpoint = endpoint + "}";
+        this.protoMessageFiles.forEach((details) =>{
+            endpoint = endpoint + details.protoFileBody + '\ '
+        })
+
+        endpoint = endpoint + "}\ ";
+
+
                         
         return endpoint;        
     }

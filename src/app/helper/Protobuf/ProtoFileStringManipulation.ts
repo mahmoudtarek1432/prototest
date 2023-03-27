@@ -2,9 +2,9 @@ export class ProtoFileStringManipulation{
 
     public static ConvertProtofile(protoFile: string, type: EndpointType){
         //prepend the protopackage and syntax fields
-        protoFile = "syntax = \"proto3\";\
+        /*protoFile = "syntax = \"proto3\";\
                     package ResponseEndpoint;\ "
-                    + protoFile;
+                    + protoFile;*/
 
         let lastNumber = ProtoFileStringManipulation.ExtractLastMemberNumber(protoFile);
          //get the file without last bracket

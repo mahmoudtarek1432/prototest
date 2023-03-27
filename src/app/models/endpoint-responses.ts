@@ -9,3 +9,7 @@ export class EndpointResponses {
     productResponses?:ProductResponse[]
     cityResponses?:CityResponse[]  
 }
+
+export class RequestEndpoints{
+    productResponses?:ProductResponse[]
+}
