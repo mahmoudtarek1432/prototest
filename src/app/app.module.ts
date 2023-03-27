@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EndpointsSubjects } from 'src/app/helper/Subject/Endpoints-Subjects';
 import { ProtoRootInstance } from 'src/app/helper/Protobuf/ProtoRootInstance';
 import { ProtobufType } from 'src/app/helper/Protobuf/ProtoBufType';
+import { ProtobufEndpointBuilder } from './helper/Protobuf/ProtobufEndpointBuilder';
 
 registerLocaleData(en);
 
@@ -36,6 +37,7 @@ registerLocaleData(en);
   providers: [
     EndpointsSubjects,
     ProtoRootInstance,
+    ProtobufEndpointBuilder,
     { provide: NZ_I18N, useValue: en_US }
   ],
   bootstrap: [AppComponent]

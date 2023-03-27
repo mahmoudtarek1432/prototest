@@ -10,6 +10,8 @@ import { websocketHelper } from './helper/Websocket/WebsocketHelper';
 import { EndpointResponses } from './models/endpoint-responses';
 import { LoginResponse } from './models/login-response';
 import { LoginEndpoint } from './Services/LoginService/login-endpoint.service';
+import { EndpointType } from './helper/Protobuf/ProtoFileStringManipulation';
+import { ProtobufEndpointBuilder } from './helper/Protobuf/ProtobufEndpointBuilder';
 
 @Component({
   selector: 'app-root',
@@ -18,17 +20,19 @@ import { LoginEndpoint } from './Services/LoginService/login-endpoint.service';
 })
 export class AppComponent implements OnInit{
   title = 'prototest';
-  constructor( private protoInstance: ProtoRootInstance){
-    const file = "message product_response {\
+  constructor( private protoInstance: ProtoRootInstance, private protoEndpointBuilder: ProtobufEndpointBuilder){
+    const file = "message ProductResponse {\
       int32 token =  1;\
       string name =  2;\
       repeated int32 list =  3;\  }"
 
-      protoInstance.addProtoEndpoint(file,"request")
-      protoInstance.addProtoEndpoint(file,"response")
-      protoInstance.addProtoEndpoint(file,"request")
+      protoEndpointBuilder.addProtoEndpoint(file,EndpointType.request)
+      protoEndpointBuilder.addProtoEndpoint(file,EndpointType.response)
+      protoEndpointBuilder.addProtoEndpoint(file,EndpointType.request)
 
-      console.log(protoInstance.buildEndpoint());
+      protoEndpointBuilder.buildEndpoint()
+
+      console.log(protoEndpointBuilder.buildEndpoint());
     
    /* let type = new ProtobufType('./assets/protos/ResponseEndpoint.proto', 'ResponsePackage', 'endpoint_responses')
     this.protoInstance.instantiate(type).then(() =>

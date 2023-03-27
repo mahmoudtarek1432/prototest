@@ -1,6 +1,6 @@
 export class ProtoFileStringManipulation{
 
-    public static ConvertProtofile(protoFile: string, type: "request" | "response"){
+    public static ConvertProtofile(protoFile: string, type: EndpointType){
         //prepend the protopackage and syntax fields
         protoFile = "syntax = \"proto3\";\
                     package ResponseEndpoint;\ "
@@ -12,10 +12,10 @@ export class ProtoFileStringManipulation{
         protoFile = protoFile.slice(0,lastBracket);
         
         switch (type){
-            case "request":
+            case 1:
                 protoFile = protoFile + this.RequestMessageAdditions(lastNumber);
                 break;
-            case "response":
+            case 2:
                 protoFile = protoFile + this.ResponseMessageAdditions(lastNumber);
                 break;
         }
@@ -86,4 +86,9 @@ export class ProtoFileStringManipulation{
 
         return ResponseDecorators
     }
+}
+
+export enum EndpointType{
+    request = 1,
+    response = 2
 }
