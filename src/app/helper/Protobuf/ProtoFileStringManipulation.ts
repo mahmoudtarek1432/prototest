@@ -69,8 +69,8 @@ export class ProtoFileStringManipulation{
     //inserts the Response constants
     private static ResponseMessageAdditions(lastNumber: string): string{
         let lastnumberParsed = parseInt(lastNumber);
-        const ResponseDecorators = `int32 request_id = ${lastnumberParsed + 1};\
-                                    int32 result_code = ${lastnumberParsed + 2};\
+        const ResponseDecorators = `int32 requestId = ${lastnumberParsed + 1};\
+                                    int32 resultCode = ${lastnumberParsed + 2};\
                                     repeated error errors = ${lastnumberParsed+ 3};\ `
         
         return ResponseDecorators
@@ -79,7 +79,7 @@ export class ProtoFileStringManipulation{
     //inserts the request constants
     private static RequestMessageAdditions(lastNumber: string): string{
         let lastnumberParsed = parseInt(lastNumber);
-        const ResponseDecorators = `int32 requestId = ${lastnumberParsed + 1};\
+        const ResponseDecorators = `int32 request_Id = ${lastnumberParsed + 1};\
                                     bool isSubscribe = ${lastnumberParsed + 2};\
                                     int32 methodType = ${lastnumberParsed+ 3};\ `
 
@@ -101,8 +101,6 @@ export class ProtoFileStringManipulation{
             }
          }
         return newString.toLowerCase();
-        //return messageName.toLowerCase()
-       
     }
 }
 export enum EndpointType{

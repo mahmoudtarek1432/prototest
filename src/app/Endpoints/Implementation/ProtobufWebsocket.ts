@@ -11,13 +11,22 @@ export class ProtobufWebsocket{
     }
 
     //handle incoming message responses
-    public OpenWebsocket(message:(event:MessageEvent<any>)=>any){
+    public OpenWebsocketWithMessage(message:(event:MessageEvent<any>)=>any){
         websocketHelper.getInstance()
         let wrapper = new ProtoWrapper(this.protoInstance.ResponseType);
         websocketHelper.websocketPort.onmessage = (ev)=>{
             let decodedEndpointResponse = wrapper.Decode<{[k:string]: IResponse[]}>(ev.data)
             EndpointReciever.handle(decodedEndpointResponse)
             return message(ev);
+        }
+    }
+
+    public OpenWebsocket(){
+        websocketHelper.getInstance()
+        let wrapper = new ProtoWrapper(this.protoInstance.ResponseType);
+        websocketHelper.websocketPort.onmessage = (ev)=>{
+            let decodedEndpointResponse = wrapper.Decode<{[k:string]: IResponse[]}>(ev.data)
+            EndpointReciever.handle(decodedEndpointResponse)
         }
     }
     

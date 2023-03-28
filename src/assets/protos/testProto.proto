@@ -1,7 +1,17 @@
 syntax = "proto3";
 package Endpoint;
-message RequestEndpoints {
-    repeated ProductResponse product_responses = 1;
-    message ProductResponse {
+message ResponseEndpoints {
+    repeated CityResponse city_responses = 1;
+     message CityResponse {
         int32 token =  1;
-        string name =  2;      repeated int32 list =  3;  int32 requestId = 4;                                    bool isSubscribe = 5;                                    int32 methodType = 6; }  } 
+        string name =  2;
+        repeated int32 list =  3;
+        int32 request_id = 4;
+        int32 result_code = 5;
+        repeated error errors = 6;
+     } 
+     message error{
+        string message = 1;
+
+    }  
+} 

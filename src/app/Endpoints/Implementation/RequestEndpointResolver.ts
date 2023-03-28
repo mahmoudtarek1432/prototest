@@ -11,7 +11,7 @@ import { IResponseEndpoint } from '../Interface/IResponseEndpoint';
 export class RequestEndpointResolver extends IResponseEndpoint<any> {
 
   constructor(private endpointSubjects: EndpointsSubjects) {
-    super(endpointSubjects,LoginResponse);
+    super(LoginResponse);
    }
 
   override handle(responseObj: any){

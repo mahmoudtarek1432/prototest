@@ -15,7 +15,6 @@ export class ProtoRootInstance{
         this.RequestType = this.builResquestProtoType().lookupType("Endpoint.RequestEndpoints")
         this.ResponseType = this.buildResponseProtoType().lookupType("Endpoint.ResponseEndpoints")
 
-        console.log(this.buildResponseProtoType())
     }
 
     buildResponseProtoType(){
