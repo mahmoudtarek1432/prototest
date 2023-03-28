@@ -7,7 +7,7 @@ import { CityResponse } from 'src/app/models/city-response';
 @Injectable({
   providedIn: 'root'
 })
-export class CityService {
+export class CityService{
 
 constructor(private client: WebsocketRequestClient) { }
 

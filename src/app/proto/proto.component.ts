@@ -1,11 +1,7 @@
 import { Component } from '@angular/core';
 import * as protobuf from 'protobufjs';
 import { WebsocketRequestClient } from '../Endpoints/Implementation/WebsocketRequestClient';
-import { EndpointReciever } from '../helper/Endpoint Managment/EndpointReciever';
-import { ProtoHelper } from '../helper/Protobuf/proto-helper';
-import { EndpointResponses } from '../models/endpoint-responses';
-import { LoginResponse } from '../models/login-response';
-import { ProductResponse } from '../models/product-response';
+
 import { LoginEndpoint } from '../Services/LoginService/login-endpoint.service';
 
 

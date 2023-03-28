@@ -1,3 +1,3 @@
 export class Globals{
-    static wsUrl:string = 'ws://127.0.0.1:1234'
+    static wsUrl:string = 'wss://socketsbay.com/wss/v2/1/demo/'
 }

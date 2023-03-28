@@ -18,7 +18,7 @@ import { IRequest } from "src/app/helper/Endpoint Managment/model/IRequest";
         this.subject.createNewsubject(requestId,null);
         let requestSubject = this.subject.getSubjectObservable<Res>(requestId)
         //send
-        let ProtoBufWrapper = new ProtoWrapper(this.ProtoInstance);
+        let ProtoBufWrapper = new ProtoWrapper(this.ProtoInstance.RequestType);
         let protoEncodedMessage = ProtoBufWrapper.EncodeMessage(payload)
         websocketHelper.SendWebsocketMessage(protoEncodedMessage)//not tested
         return requestSubject

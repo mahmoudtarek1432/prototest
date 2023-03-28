@@ -13,18 +13,20 @@ export class ProtoRootInstance{
     instantiate(){
 
         this.RequestType = this.builResquestProtoType().lookupType("Endpoint.RequestEndpoints")
-        this.ResponseType = this.builResquestProtoType().lookupType("Endpoint.ResponseEndpoints")
+        this.ResponseType = this.buildResponseProtoType().lookupType("Endpoint.ResponseEndpoints")
+
+        console.log(this.buildResponseProtoType())
     }
 
     buildResponseProtoType(){
         let protoroot = new protobuf.Root();
-        protobuf.parse(ProtobufEndpointBuilder.buildRequestEndpoint(), protoroot, { keepCase: true, alternateCommentMode: false, preferTrailingComment: false });
+        protobuf.parse(ProtobufEndpointBuilder.buildResponseEndpoint(), protoroot, { keepCase: true, alternateCommentMode: false, preferTrailingComment: false });
         protoroot.resolveAll();
         return protoroot
     }    
     builResquestProtoType(){
         let protoroot = new protobuf.Root();
-        protobuf.parse(ProtobufEndpointBuilder.buildResponseEndpoint(), protoroot, { keepCase: true, alternateCommentMode: false, preferTrailingComment: false });
+        protobuf.parse(ProtobufEndpointBuilder.buildRequestEndpoint(), protoroot, { keepCase: true, alternateCommentMode: false, preferTrailingComment: false });
         protoroot.resolveAll();
         return protoroot
     } 

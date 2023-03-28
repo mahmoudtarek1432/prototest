@@ -1,5 +1,4 @@
 import { RequestEndpointResolver } from "../../Endpoints/Implementation/RequestEndpointResolver"
-import { EndpointResponses } from "../../models/endpoint-responses"
 import { ResultCode} from './model/result-code'
 import { IResponse } from "./model/IResponse"
 import { ServiceInjection } from "./ServiceInjection"

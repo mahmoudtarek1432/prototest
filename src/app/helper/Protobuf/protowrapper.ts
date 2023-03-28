@@ -3,11 +3,11 @@ import { ProtobufType } from './ProtoBufType';
 import { ProtoRootInstance } from './ProtoRootInstance';
 
 /**A wrapper built on top of protobuf.js to ease implementation*/
-export class ProtoWrapper<ProtobufType>{
+export class ProtoWrapper{
 
     prototype: protobuf.Type
-    constructor(private protoRootInstance: ProtoRootInstance){ 
-        this.prototype = this.protoRootInstance.protoRoot
+    constructor(protobufType: protobuf.Type){ 
+        this.prototype = protobufType;
     }
 
     /**function handels accessing the .proto file containing the package and its message types
@@ -15,9 +15,9 @@ export class ProtoWrapper<ProtobufType>{
 
 
     verify(payload:{k : [string]}){
-        var errmsg = this.prototype!.verify(payload)
+        var errmsg = this.prototype!.verify(payload);
         if(errmsg)
-            throw Error(errmsg)
+            throw Error(errmsg);
     }
 
     /**
@@ -26,11 +26,11 @@ export class ProtoWrapper<ProtobufType>{
      * (_)
      */
     create(payload: any):protobuf.Message<{}>{
-        var errmsg = this.prototype!.verify(payload)
+        var errmsg = this.prototype!.verify(payload);
         if(errmsg)
-            throw Error(errmsg)
+            throw Error(errmsg);
         console.log(payload)
-        return this.prototype!.create(payload)
+        return this.prototype!.create(payload);
         
     }
     
@@ -41,7 +41,7 @@ export class ProtoWrapper<ProtobufType>{
      * 
       */
     EncodeProto(protobufMessage:protobuf.Message<{}>,writer?:protobuf.Writer): Uint8Array{
-        return this.prototype!.encode(protobufMessage,writer).finish()
+        return this.prototype!.encode(protobufMessage,writer).finish();
     }
 
     /**
@@ -50,13 +50,13 @@ export class ProtoWrapper<ProtobufType>{
      * @returns 
      */
      EncodeMessage(payload: any):Uint8Array{
-        var errmsg = this.prototype!.verify(payload)
+        var errmsg = this.prototype!.verify(payload);
         if(errmsg)
-            throw Error(errmsg)
+            throw Error(errmsg);
         //create a protoMessage wrapped arrount the protoType Object
-        let protoMessage = this.prototype!.create(payload)
+        let protoMessage = this.prototype!.create(payload);
         //encodes proto message to uint8array 
-        return this.prototype!.encode(protoMessage).finish()
+        return this.prototype!.encode(protoMessage).finish();
     }
 
     /**
@@ -66,8 +66,8 @@ export class ProtoWrapper<ProtobufType>{
      * @returns A promise protoMessage, use toObject To access the type members
      */
     Decode<T>(encodedMessage:Uint8Array):T{
-        let decoded = this.prototype!.decode(encodedMessage)
-        return this.prototype!.toObject(decoded) as T
+        let decoded = this.prototype!.decode(encodedMessage);
+        return this.prototype!.toObject(decoded) as T;
     }
 }
 

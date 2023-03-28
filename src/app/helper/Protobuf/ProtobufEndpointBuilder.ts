@@ -22,7 +22,6 @@ export class ProtobufEndpointBuilder{
                 ProtobufEndpointBuilder.protoResponseFiles.push(fileDetails)
                 break;
         }
-        ProtobufEndpointBuilder.protoResponseFiles.push(fileDetails)
     }
 
     /// there shall be a response endpoint and request endpoint
@@ -39,6 +38,11 @@ export class ProtobufEndpointBuilder{
             endpoint = endpoint + details.protoFileBody + '\ '
         })
 
+        const error = "message error{\
+            string message = 1;\
+        }\ "
+
+        endpoint = endpoint + error
         endpoint = endpoint + " }\ ";             
         return endpoint;        
     }
