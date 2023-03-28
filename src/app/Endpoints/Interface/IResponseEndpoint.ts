@@ -6,8 +6,9 @@ import { IResponse } from "../../helper/Endpoint Managment/model/IResponse";
 import { RequestIdHandler } from "../../helper/Subject/RequestIdHandler";
 import { WebSocketBroadcast } from "../Implementation/WebSocketBroadcast";
 import { AppModule } from "src/app/app.module";
+import { IRequest } from "src/app/helper/Endpoint Managment/model/IRequest";
 
-export abstract class IResponseEndpoint<R extends IResponse>{
+export abstract class IEndpoint<R extends IResponse>{
     private subject!: EndpointsSubjects;
     private WebsocketBroadcast!: WebSocketBroadcast
 
@@ -16,8 +17,7 @@ export abstract class IResponseEndpoint<R extends IResponse>{
         this.WebsocketBroadcast = AppModule.injectorInstance.get(WebSocketBroadcast)
 
         let className = this.constructor.name;
-        let childClass = Object.getPrototypeOf(className);
-        EndpointsSubjects.createNewsubject<R>(className, new responseType());
+        this.subject.createNewsubject<R>(className, new responseType());
     }
 
     protected ProcessData<R>(ResponseObject: R):any{
@@ -27,12 +27,14 @@ export abstract class IResponseEndpoint<R extends IResponse>{
     handle<R>(responseObj: R): void {
         let obj = this.ProcessData(responseObj)
         obj.constructor
-        EndpointsSubjects updateSubject<typeof obj.constructor>(this.constructor.name, obj);
+        this.subject.updateSubject<typeof obj.constructor>(this.constructor.name, obj);
     }
 
     //Subscribes localy
-    SubscribeToBroadcast():Observable<R>{
-        WebSocketBroadcast.
-        return EndpointsSubjects.getSubjectObservable<R>(this.constructor.name)
+    SubscribeToBroadcast<requestType extends IRequest>(request: {new(): requestType} ):Observable<R>{
+        let copy = new request()
+        copy.isSubscribe = true
+        this.WebsocketBroadcast.Subscribe(copy)
+        return this.subject.getSubjectObservable<R>(this.constructor.name)
     }
 }

@@ -1,7 +1,7 @@
 import { ServiceInjection } from "./ServiceInjection";
 import { EndpointsMap } from "src/app/helper/Endpoint Managment/EnpointMap";
 import { IResponse } from "src/app/helper/Endpoint Managment/model/IResponse"; 
-import { IResponseEndpoint } from "src/app/Endpoints/Interface/IResponseEndpoint";
+import { IEndpoint } from "src/app/Endpoints/Interface/IResponseEndpoint";
 
 
 export class ServiceInstancefactory{
@@ -10,7 +10,7 @@ export class ServiceInstancefactory{
     * @param responseType - takes a class instance that extends IResponse
     * @returns an object that extends IResponseEndpoint,     
     */
-    static createInstance<R extends IResponse>(reponseType: { new ():R}): IResponseEndpoint<IResponse>{
+    static createInstance<R extends IResponse>(reponseType: { new ():R}): IEndpoint<IResponse>{
         let serviceType = EndpointsMap.resolveEndpoint(reponseType.name)
         return ServiceInjection.Create(serviceType)
     }
