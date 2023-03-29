@@ -33,24 +33,25 @@ export class AppComponent{
     const cityResponse = "message CityResponse {\
       string token =  1;\
       string name =  2;\
-      repeated int32 list =  3;\  }"
+      repeated int32 list =  3;\  }";
+
     const cityRequest = "message CityRequest {\
       string token =  1;\
       string name =  2;\
-      repeated int32 list =  3;\  }"
+      repeated int32 list =  3;\  }";
 
       const loginResponse = "message LoginResponse {\
         string token =  1;\
         string name =  2;\
-        repeated int32 list =  3;\  }"
+        repeated int32 list =  3;\  }";
 
-      ProtobufEndpointBuilder.addProtoEndpoint(cityResponse,EndpointType.response)
-      ProtobufEndpointBuilder.addProtoEndpoint(cityRequest,EndpointType.request)
-      ProtobufEndpointBuilder.addProtoEndpoint(loginResponse,EndpointType.response)
-      this.protoInstance.instantiate()
+      ProtobufEndpointBuilder.addProtoEndpoint(cityResponse,EndpointType.response);
+      ProtobufEndpointBuilder.addProtoEndpoint(cityRequest,EndpointType.request);
+      ProtobufEndpointBuilder.addProtoEndpoint(loginResponse,EndpointType.response);
+      this.protoInstance.instantiate();
 
       let websocket = new ProtobufWebsocket(protoInstance);
-      websocket.OpenWebsocket()
+      websocket.OpenWebsocket();
 
   }
 }

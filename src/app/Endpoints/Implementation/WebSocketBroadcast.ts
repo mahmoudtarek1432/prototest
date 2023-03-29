@@ -5,6 +5,7 @@ import { ProtoRootInstance } from "src/app/helper/Protobuf/ProtoRootInstance";
 import { IRequest } from "src/app/helper/Endpoint Managment/model/IRequest";
 import { RequestEndpoints } from "src/app/models/endpoint-requests";
 import { EndpointFeeder } from "src/app/helper/Endpoint Managment/EndpointFeeder";
+import { RequestIdHandler } from '../../helper/Subject/RequestIdHandler';
 
 @Injectable({
     providedIn: 'root'
@@ -13,12 +14,13 @@ import { EndpointFeeder } from "src/app/helper/Endpoint Managment/EndpointFeeder
     constructor(private ProtoInstance: ProtoRootInstance){
     }
     Subscribe(payload: IRequest){ //tba
-        
-        let RequestEndpoint = new RequestEndpoints()
-        EndpointFeeder.FeedRequestEndpoint (payload,RequestEndpoint)
+      let requestId = RequestIdHandler.generateRequestId();
+      payload.requestId = requestId;
+        let RequestEndpoint = new RequestEndpoints();
+        EndpointFeeder.FeedRequestEndpoint (payload,RequestEndpoint);
         let ProtoBufWrapper = new ProtoWrapper(this.ProtoInstance.RequestType);
-        let protoEncodedMessage = ProtoBufWrapper.EncodeMessage(payload)
-        websocketHelper.SendWebsocketMessage(protoEncodedMessage)//not tested
+        let protoEncodedMessage = ProtoBufWrapper.EncodeMessage(payload);
+        websocketHelper.SendWebsocketMessage(protoEncodedMessage); //not tested
 
     }
 }

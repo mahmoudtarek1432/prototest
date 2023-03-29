@@ -12,7 +12,7 @@ export class EndpointsSubjects{
     createNewsubject<T>(Key:string | number, subjectType:T){
         let subject = this.subjectHandlers[Key];
         if(subject == undefined)
-            this.subjectHandlers[Key] = new SubjectHandler<T>(subjectType)
+            this.subjectHandlers[Key] = new SubjectHandler<T>(subjectType);
     }
 
     /**
@@ -21,8 +21,8 @@ export class EndpointsSubjects{
     updateSubject<T>(Key:string | number, subjectType:T){
         let subject = this.subjectHandlers[Key];
         if(subject == undefined)
-            throw Error("subject Not Found")
-        subject.updateSubject(subjectType)
+            throw Error("subject Not Found");
+        subject.updateSubject(subjectType);
     }
 
     /**
@@ -31,7 +31,7 @@ export class EndpointsSubjects{
     getSubjectObservable<T>(Key:string | number): Observable<T>{
         let subject = this.subjectHandlers[Key];
         if(subject)
-            return this.subjectHandlers[Key].getSubjectObservable()
+            return this.subjectHandlers[Key].getSubjectObservable();
         throw Error("subject Not Found")
     }
 

@@ -1,7 +1,7 @@
 export class RequestIdHandler{
-    static RequestId: number = 0
+    static requestId: number = 0
     static generateRequestId():number{
-        this.RequestId++ //new requestId Incremented
-        return this.RequestId;
+        this.requestId++; //new requestId Incremented
+        return this.requestId;
     }
 }

@@ -15,11 +15,11 @@ export abstract class IEndpoint<R extends IResponse>{
     
 
     constructor(responseType: {new():R}){
-        this.subject = AppModule.injectorInstance.get(EndpointsSubjects)
-        this.WebsocketBroadcast = AppModule.injectorInstance.get(WebSocketBroadcast)
+        this.subject = AppModule.injectorInstance.get(EndpointsSubjects);
+        this.WebsocketBroadcast = AppModule.injectorInstance.get(WebSocketBroadcast);
 
         let className = this.constructor.name;
-        EndpointsMap.CreateEndpoint(LoginResponse,Object.getPrototypeOf(this).constructor)
+        EndpointsMap.CreateEndpoint(LoginResponse,Object.getPrototypeOf(this).constructor);
         this.subject.createNewsubject<R>(className, new responseType());
     }
 
@@ -28,15 +28,15 @@ export abstract class IEndpoint<R extends IResponse>{
     }
 
     handle<R>(responseObj: R): void {
-        let obj = this.ProcessData(responseObj)
-        obj.constructor
+        let obj = this.ProcessData(responseObj);
+        obj.constructor;
         this.subject.updateSubject<typeof obj.constructor>(this.constructor.name, obj);
     }
 
     //Subscribes localy
     SubscribeToBroadcast<requestType extends IRequest>(request: requestType ):Observable<R>{
-        request.isSubscribe = true
-        this.WebsocketBroadcast.Subscribe(request)
-        return this.subject.getSubjectObservable<R>(this.constructor.name)
+        request.isSubscribe = true;
+        this.WebsocketBroadcast.Subscribe(request);
+        return this.subject.getSubjectObservable<R>(this.constructor.name);
     }
 }

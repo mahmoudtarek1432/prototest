@@ -5,15 +5,15 @@ import { ProtoFileStringManipulation } from "./ProtoFileStringManipulation";
 
 export class ProtoRootInstance{
     RequestType!: protobuf.Type;
-    ResponseType!: protobuf.Type
+    ResponseType!: protobuf.Type;
     constructor(){
 
     }
 
     instantiate(){
 
-        this.RequestType = this.builResquestProtoType().lookupType("Endpoint.RequestEndpoints")
-        this.ResponseType = this.buildResponseProtoType().lookupType("Endpoint.ResponseEndpoints")
+        this.RequestType = this.builResquestProtoType().lookupType("Endpoint.RequestEndpoints");
+        this.ResponseType = this.buildResponseProtoType().lookupType("Endpoint.ResponseEndpoints");
 
     }
 
@@ -21,12 +21,12 @@ export class ProtoRootInstance{
         let protoroot = new protobuf.Root();
         protobuf.parse(ProtobufEndpointBuilder.buildResponseEndpoint(), protoroot, { keepCase: true, alternateCommentMode: false, preferTrailingComment: false });
         protoroot.resolveAll();
-        return protoroot
+        return protoroot;
     }    
     builResquestProtoType(){
         let protoroot = new protobuf.Root();
         protobuf.parse(ProtobufEndpointBuilder.buildRequestEndpoint(), protoroot, { keepCase: true, alternateCommentMode: false, preferTrailingComment: false });
         protoroot.resolveAll();
-        return protoroot
+        return protoroot;
     } 
 }

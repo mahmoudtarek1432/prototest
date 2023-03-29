@@ -11,7 +11,7 @@ export class ServiceInjection{
     static Create<T extends IEndpoint<IResponse>>(Type:{new(subscriptions:EndpointsSubjects):T}): T{
         let endpoint = AppModule.injectorInstance.get(Type,new Error("endpoint not found")); //depricated
         if(endpoint === "endpoint not found")
-            throw endpoint
+            throw endpoint;
         return endpoint;
     }
 }

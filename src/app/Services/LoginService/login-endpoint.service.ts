@@ -9,6 +9,6 @@ import { EndpointsMap } from 'src/app/helper/Endpoint Managment/EnpointMap';
 })
 export class LoginEndpoint extends IEndpoint<LoginResponse>{
   constructor() {
-    super(LoginResponse)
+    super(LoginResponse);
   }
 }

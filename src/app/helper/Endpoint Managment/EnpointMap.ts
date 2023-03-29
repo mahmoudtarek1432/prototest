@@ -10,7 +10,7 @@ export abstract class EndpointsMap{
     static Map:{[k:string]: {new():IEndpoint<IResponse>}} = { } // key value pair pool 
 
     static CreateEndpoint<R extends IResponse,S extends IEndpoint<R>>(response :{new():R}, endpoint :{new():S}){
-        let responseName = response.name
+        let responseName = response.name;
         if(EndpointsMap.Map[responseName] == undefined)
             EndpointsMap.Map[responseName] = endpoint;
     }
@@ -18,7 +18,7 @@ export abstract class EndpointsMap{
     static resolveEndpoint(responseName :string): {new(subscriptions:EndpointsSubjects):IEndpoint<IResponse>}{
         let responseEndpoint = EndpointsMap.Map[responseName];
         if(responseEndpoint == undefined)
-            throw new Error("endpoint not configured for this response, Map it using CreateEndpoint function")
+            throw new Error("endpoint not configured for this response, Map it using CreateEndpoint function");
         return responseEndpoint
     }
 }

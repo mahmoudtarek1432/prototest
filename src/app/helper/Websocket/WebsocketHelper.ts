@@ -6,7 +6,7 @@ import { Globals } from "src/Shared/Globals";
  */
 export class websocketHelper {
 
-    public static websocketPort:WebSocket
+    public static websocketPort:WebSocket;
 
     constructor(private globals:Globals){
 
@@ -23,10 +23,10 @@ export class websocketHelper {
         if(this.websocketPort)
             return this.websocketPort;
         let socket = new WebSocket(Globals.wsUrl);
-        this.websocketPort = socket
+        this.websocketPort = socket;
         socket.onopen = ev => {
-            console.log(ev)
         }
+        
         return this.websocketPort;
     }
 
@@ -35,7 +35,7 @@ export class websocketHelper {
      * @param message - callback function that handles incoming websocket messages
      */
     static ReciveWebsocketMessage<T>(message:(event:MessageEvent<any>)=>any){
-        websocketHelper.getInstance()
+        websocketHelper.getInstance();
         return websocketHelper.websocketPort.onmessage = (ev)=>{
             return message(ev);
         }
@@ -46,9 +46,12 @@ export class websocketHelper {
      * @param data send data in the form of string|Blob|ArrayBufferLike
      */
     static SendWebsocketMessage(data:string|Blob|ArrayBufferLike|ArrayBuffer){
-        websocketHelper.getInstance()
-        if(this.websocketPort.readyState == 1){
-            this.websocketPort.send(data)
+        websocketHelper.getInstance();
+        if(this.websocketPort.readyState == 0){
+            new Promise(r =>{
+                setTimeout(r, 2000);
+                this.websocketPort.send(data);
+            })
         }
     }
 }

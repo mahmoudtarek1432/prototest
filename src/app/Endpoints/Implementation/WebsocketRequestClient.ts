@@ -18,17 +18,17 @@ import { RequestEndpoints } from "src/app/models/endpoint-requests";
     request<Res extends IResponse>(payload: IRequest){ //tba
         let requestId = RequestIdHandler.generateRequestId();
         this.subject.createNewsubject(requestId,null);
-        let requestSubject = this.subject.getSubjectObservable<Res>(requestId)
+        let requestSubject = this.subject.getSubjectObservable<Res>(requestId);
         //build an endpoint
         let endpoint = EndpointFeeder.FeedRequestEndpoint(payload,new RequestEndpoints());
         //send
         let ProtoBufWrapper = new ProtoWrapper(this.ProtoInstance.RequestType);
-        let protoEncodedMessage = ProtoBufWrapper.EncodeMessage(endpoint)
+        let protoEncodedMessage = ProtoBufWrapper.EncodeMessage(endpoint);
         try{
           websocketHelper.SendWebsocketMessage(protoEncodedMessage)//not tested
-          return requestSubject
+          return requestSubject;
         }catch{
-          throw new Error("WebSocket Is not instantiated yet.")
+          throw new Error("WebSocket Is not instantiated yet.");
         }
     }
 }

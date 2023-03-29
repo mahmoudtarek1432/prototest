@@ -44,10 +44,10 @@ registerLocaleData(en);
 })
 
 export class AppModule { 
-  static injectorInstance: Injector
-  //static injector instantiated
+  static injectorInstance: Injector;
+  //static injector instantiated for global use
   constructor(private DIinstance: Injector){
     
-    AppModule.injectorInstance = this.DIinstance
+    AppModule.injectorInstance = this.DIinstance;
   }
 }

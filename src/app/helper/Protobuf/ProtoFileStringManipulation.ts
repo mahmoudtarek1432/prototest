@@ -35,21 +35,21 @@ export class ProtoFileStringManipulation{
             if(protoFile[i] == " " || protoFile[i] == "{"){ //first encountered after message name
                 break;
             }
-            messageName = messageName + protoFile[i]
+            messageName = messageName + protoFile[i];
         }
-        return messageName
+        return messageName;
     }
 
     // returns the last number associated with a member in a message to further append members dynamicaly
     private static ExtractLastMemberNumber(protoFile:string){
         //itrates from the end to find the last number in file
         let index = protoFile.length-1;
-        let found = false
-        let lastNumber = ""
+        let found = false;
+        let lastNumber = "";
         while(index> 0){
             if(found == true){
                 if(48 <= protoFile[index].charCodeAt(0) &&  protoFile[index].charCodeAt(0) <= 57){ //if the char is a number between 0 and 9
-                    lastNumber = lastNumber + protoFile[index] //appends the located number
+                    lastNumber = lastNumber + protoFile[index]; //appends the located number
                 }
                 else if(lastNumber != "" && protoFile[index] == " "){ //found a space that isnt before the number
                     break;
@@ -58,7 +58,7 @@ export class ProtoFileStringManipulation{
             }
             else{
                 if(protoFile[index] == "="){
-                    found = true
+                    found = true;
                 }
                 index--;
             }
@@ -71,9 +71,9 @@ export class ProtoFileStringManipulation{
         let lastnumberParsed = parseInt(lastNumber);
         const ResponseDecorators = `int32 requestId = ${lastnumberParsed + 1};\
                                     int32 resultCode = ${lastnumberParsed + 2};\
-                                    repeated error errors = ${lastnumberParsed+ 3};\ `
+                                    repeated error errors = ${lastnumberParsed+ 3};\ `;
         
-        return ResponseDecorators
+        return ResponseDecorators;
     }
 
     //inserts the request constants
@@ -81,9 +81,9 @@ export class ProtoFileStringManipulation{
         let lastnumberParsed = parseInt(lastNumber);
         const ResponseDecorators = `int32 request_Id = ${lastnumberParsed + 1};\
                                     bool isSubscribe = ${lastnumberParsed + 2};\
-                                    int32 methodType = ${lastnumberParsed+ 3};\ `
+                                    int32 methodType = ${lastnumberParsed+ 3};\ `;
 
-        return ResponseDecorators
+        return ResponseDecorators;
     }
 
     
@@ -96,7 +96,7 @@ export class ProtoFileStringManipulation{
             if(65 <= messageName[i].charCodeAt(0) &&  messageName[i].charCodeAt(0) <= 90){ // 65 is for A and 90 is for Z
                 let righthand = messageName.slice(0,i);
                 let lefthand = messageName.slice(i,messageName.length);
-                newString = righthand + "_" + lefthand
+                newString = righthand + "_" + lefthand;
 
             }
          }

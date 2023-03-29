@@ -19,12 +19,12 @@ export class ProtobufType{
      * */ 
     
     constructor(filePath:string, packageName: string, className: string){
-        this.filename = filePath
-        this.packageName = packageName
-        this.className = className
+        this.filename = filePath;
+        this.packageName = packageName;
+        this.className = className;
     }
 
     protobufTypeAccess():ProtobufType{
-        return this
+        return this;
     }
 }

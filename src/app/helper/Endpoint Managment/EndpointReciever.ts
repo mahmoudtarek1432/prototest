@@ -11,14 +11,14 @@ import { ResponseEndpoints } from "src/app/models/endpoint-responses"
  */
 export class EndpointReciever{
     static handle(endpointRersponses: ResponseEndpoints){
-            let properties = Object.getOwnPropertyNames(endpointRersponses)            //casts Object Properties into an array of strings
+            let properties = Object.getOwnPropertyNames(endpointRersponses);         //casts Object Properties into an array of strings
             properties.forEach((propertyName) =>{                                      
-              let propertyKey = propertyName as keyof typeof endpointRersponses       // typeof returns a class name as a string, further keyof assigns the propertyname string
+              let propertyKey = propertyName as keyof typeof endpointRersponses;       // typeof returns a class name as a string, further keyof assigns the propertyname string
               endpointRersponses[propertyKey]?.map((Response) => {                            // as a property of endpointResponse Class --- potential danger
                 //tb - check status for broadcast or request based event
-                let responseClassType = Object.getPrototypeOf(Response).constructor
+                let responseClassType = Object.getPrototypeOf(Response).constructor;
                 if(Response.resultCode == ResultCode["Subscribed"]){
-                  ServiceInstancefactory.createInstance(responseClassType).handle(Response)
+                  ServiceInstancefactory.createInstance(responseClassType).handle(Response);
                 }
                 else{                                                               //returns an endpoint according to the passed response's prototype
                   ServiceInjection.Create(RequestEndpointResolver).handle(Response);  //request response endpoint
