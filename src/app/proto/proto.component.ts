@@ -72,7 +72,7 @@ export class ProtoComponent {
 
 
     let cres = new CityResponse();
-    cres.requestId = 1;
+    cres.requestId = 2;
     cres.name = "cairo"
     cres.resultCode = 200
 
