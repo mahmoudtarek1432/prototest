@@ -46,6 +46,8 @@ export class ProtobufEndpointBuilder{
         }\ "
 
         endpoint = endpoint + error;
+        console.log(endpoint)
+
         return endpoint;        
     }
 
