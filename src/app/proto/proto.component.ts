@@ -10,6 +10,8 @@ import { CityRequest } from '../models/city-request';
 import { CityResponse } from '../models/city-response';
 import { RequestEndpoints } from '../models/endpoint-requests';
 import { ResponseEndpoints } from '../models/endpoint-responses';
+import { LoginRequest } from '../models/login-request';
+import { LoginResponse } from '../models/login-response';
 import { CityService } from '../Services/CityService/city.service';
 
 import { LoginEndpoint } from '../Services/LoginService/login-endpoint.service';
@@ -25,7 +27,12 @@ export class ProtoComponent {
   prototext!:any;
 
   constructor(private protoInstance: ProtoRootInstance,private cityRequest: CityService){
-    
+  }
+
+  openBroadcast(){
+   
+    let x = new LoginEndpoint();
+    x.SubscribeToBroadcast(new LoginRequest()).subscribe(r => console.log(r))
   }
 
   async testRequestResponse(){
@@ -51,6 +58,37 @@ export class ProtoComponent {
 
     let decodedEndpointResponse = wrapper.Decode<{[k:string]: IResponse[]}>(encodedmsg)
     console.log(decodedEndpointResponse)
+    EndpointReciever.handle(decodedEndpointResponse)
+  }
+
+  async testMix(){
+    let cr = new CityRequest();
+    cr.requestId = 1;
+    cr.methodType = MethodType.POST;
+    cr.isSubscribe = false;
+
+
+    this.cityRequest.GetCity(cr).subscribe(r => console.log(r))
+
+
+    let cres = new CityResponse();
+    cres.requestId = 1;
+    cres.name = "cairo"
+    cres.resultCode = 200
+
+    let lres = new LoginResponse();
+    lres.requestId = 1;
+
+    lres.resultCode = 410
+
+    let ed = new ResponseEndpoints()
+    ed.city_responses = [cres]
+    ed.login_responses = [lres]
+    
+    let wrapper = new ProtoWrapper(this.protoInstance.ResponseType);
+    let encodedmsg = wrapper.EncodeMessage(ed)
+
+    let decodedEndpointResponse = wrapper.Decode<ResponseEndpoints>(encodedmsg)
     EndpointReciever.handle(decodedEndpointResponse)
   }
 }

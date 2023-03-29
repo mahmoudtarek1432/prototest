@@ -47,6 +47,8 @@ export class websocketHelper {
      */
     static SendWebsocketMessage(data:string|Blob|ArrayBufferLike|ArrayBuffer){
         websocketHelper.getInstance()
-        this.websocketPort.send(data)
+        if(this.websocketPort.readyState == 1){
+            this.websocketPort.send(data)
+        }
     }
 }

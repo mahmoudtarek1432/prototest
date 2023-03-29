@@ -18,10 +18,7 @@ import { EndpointFeeder } from "src/app/helper/Endpoint Managment/EndpointFeeder
         EndpointFeeder.FeedRequestEndpoint (payload,RequestEndpoint)
         let ProtoBufWrapper = new ProtoWrapper(this.ProtoInstance.RequestType);
         let protoEncodedMessage = ProtoBufWrapper.EncodeMessage(payload)
-        try{
-          websocketHelper.SendWebsocketMessage(protoEncodedMessage)//not tested
-        }catch{
-          throw new Error("WebSocket Is not instantiated yet.")
-        }
+        websocketHelper.SendWebsocketMessage(protoEncodedMessage)//not tested
+
     }
 }

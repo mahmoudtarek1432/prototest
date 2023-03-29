@@ -31,17 +31,22 @@ export class AppComponent{
   title = 'prototest';
   constructor( private protoInstance: ProtoRootInstance){
     const cityResponse = "message CityResponse {\
-      int32 token =  1;\
+      string token =  1;\
       string name =  2;\
       repeated int32 list =  3;\  }"
     const cityRequest = "message CityRequest {\
-      int32 token =  1;\
+      string token =  1;\
       string name =  2;\
       repeated int32 list =  3;\  }"
 
+      const loginResponse = "message LoginResponse {\
+        string token =  1;\
+        string name =  2;\
+        repeated int32 list =  3;\  }"
+
       ProtobufEndpointBuilder.addProtoEndpoint(cityResponse,EndpointType.response)
       ProtobufEndpointBuilder.addProtoEndpoint(cityRequest,EndpointType.request)
-
+      ProtobufEndpointBuilder.addProtoEndpoint(loginResponse,EndpointType.response)
       this.protoInstance.instantiate()
 
       let websocket = new ProtobufWebsocket(protoInstance);

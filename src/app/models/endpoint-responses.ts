@@ -5,8 +5,6 @@ import { ProductResponse } from "./product-response";
 
 //undefined removed
 export class ResponseEndpoints{
-    productresponses?:ProductResponse[]
-    productResponses?:ProductResponse[]
-    product_responses?:ProductResponse[]
     city_responses?:CityResponse[]  
+    login_responses?:LoginResponse[]
 }
