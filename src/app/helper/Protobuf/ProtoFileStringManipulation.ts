@@ -79,9 +79,9 @@ export class ProtoFileStringManipulation{
     //inserts the request constants
     private static RequestMessageAdditions(lastNumber: string): string{
         let lastnumberParsed = parseInt(lastNumber);
-        const ResponseDecorators = `int32 request_Id = ${lastnumberParsed + 1};\
-                                    bool isSubscribe = ${lastnumberParsed + 2};\
-                                    int32 methodType = ${lastnumberParsed+ 3};\ `;
+        const ResponseDecorators = `int32 request_id = ${lastnumberParsed + 1};\
+                                    bool is_subscribe = ${lastnumberParsed + 2};\
+                                    int32 method_type = ${lastnumberParsed+ 3};\ `;
 
         return ResponseDecorators;
     }

@@ -37,9 +37,9 @@ export class ProtoComponent {
 
   async testRequestResponse(){
     let cr = new CityRequest();
-    cr.requestId = 1;
-    cr.methodType = MethodType.POST;
-    cr.isSubscribe = false;
+    cr.request_id = 1;
+    cr.method_type = MethodType.POST;
+    cr.is_subscribe = false;
 
 
     this.cityRequest.GetCity(cr).subscribe(r => console.log(r))
@@ -63,9 +63,9 @@ export class ProtoComponent {
 
   async testMix(){
     let cr = new CityRequest();
-    cr.requestId = 1;
-    cr.methodType = MethodType.POST;
-    cr.isSubscribe = false;
+    cr.request_id = 1;
+    cr.method_type = MethodType.POST;
+    cr.is_subscribe = false;
 
 
     this.cityRequest.GetCity(cr).subscribe(r => console.log(r))

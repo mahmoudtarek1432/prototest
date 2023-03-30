@@ -35,7 +35,7 @@ export abstract class IEndpoint<R extends IResponse>{
 
     //Subscribes localy
     SubscribeToBroadcast<requestType extends IRequest>(request: requestType ):Observable<R>{
-        request.isSubscribe = true;
+        request.is_subscribe = true;
         this.WebsocketBroadcast.Subscribe(request);
         return this.subject.getSubjectObservable<R>(this.constructor.name);
     }

@@ -15,7 +15,7 @@ import { RequestIdHandler } from '../../helper/Subject/RequestIdHandler';
     }
     Subscribe(payload: IRequest){ //tba
       let requestId = RequestIdHandler.generateRequestId();
-      payload.requestId = requestId;
+      payload.request_id = requestId;
         let RequestEndpoint = new RequestEndpoints();
         EndpointFeeder.FeedRequestEndpoint (payload,RequestEndpoint);
         let ProtoBufWrapper = new ProtoWrapper(this.ProtoInstance.RequestType);

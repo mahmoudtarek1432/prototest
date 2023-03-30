@@ -46,8 +46,6 @@ export class ProtobufEndpointBuilder{
         }\ "
 
         endpoint = endpoint + error;
-        console.log(endpoint)
-
         return endpoint;        
     }
 
@@ -66,8 +64,67 @@ export class ProtobufEndpointBuilder{
         this.protoRequestFiles.forEach((details) =>{
             endpoint = endpoint + details.protoFileBody + '\ ';
         })
+        console.log(endpoint)
+
         return endpoint;        
     }
+
+    /*
+     static buildEndpointPackage(){
+        let endpoint = "syntax = \"proto3\";\
+                       package Endpoint;\ ";
+        endpoint += this.buildResponseEndpoint();
+
+        endpoint += this.buildRequestEndpoint();
+
+        endpoint += '}'
+        return endpoint
+    }
+
+    /// there shall be a response endpoint and request endpoint
+    static buildResponseEndpoint(){
+        let endpoint ="message ResponseEndpoints {\ "; 
+        //push messages from array
+        this.protoResponseFiles.forEach((file,i) =>{
+            let FieldName = ProtoFileStringManipulation.configureMessageName(file.messageName)+"s";
+            endpoint = endpoint + `repeated ${file.messageName} ${FieldName} = ${i+1};\ `;
+        })
+
+        endpoint = endpoint + " }\ ";   
+
+        this.protoResponseFiles.forEach((details) =>{
+            endpoint = endpoint + details.protoFileBody + '\ ';
+        })
+
+        const error = "message error{\
+            string message = 1;\
+        }\ "
+
+        endpoint = endpoint + error;
+        console.log(endpoint)
+
+        return endpoint;        
+    }
+
+    static buildRequestEndpoint(){
+        let endpoint ="message RequestEndpoints {\ ";
+        //push messages from array
+        this.protoRequestFiles.forEach((file,i) =>{
+            let FieldName = ProtoFileStringManipulation.configureMessageName(file.messageName)+"s";
+            endpoint = endpoint + `repeated ${file.messageName} ${FieldName} = ${i+1};\ `;
+        })
+
+        endpoint = endpoint + " }\ ";             
+
+        this.protoRequestFiles.forEach((details) =>{
+            endpoint = endpoint + details.protoFileBody + '\ ';
+        })
+        console.log(endpoint)
+
+        return endpoint;        
+    }
+    
+    */
 }
 
 class ProtoDetails{

@@ -1,7 +1,7 @@
 import { MethodType } from "./method_type";
 
 export abstract class IRequest{
-    requestId! :number;
-    isSubscribe!: boolean;
-    methodType!: MethodType;
+    request_id! :number;
+    is_subscribe!: boolean;
+    method_type!: MethodType;
 }
