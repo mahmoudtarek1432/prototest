@@ -22,9 +22,12 @@ export class websocketHelper {
 
         if(this.websocketPort)
             return this.websocketPort;
-        let socket = new WebSocket(Globals.wsUrl);
+
+            
+        let socket = new window.WebSocket(Globals.wsUrl) 
         this.websocketPort = socket;
         socket.onopen = ev => {
+            console.log(ev)
         }
         
         return this.websocketPort;
@@ -37,6 +40,7 @@ export class websocketHelper {
     static ReciveWebsocketMessage<T>(message:(event:MessageEvent<any>)=>any){
         websocketHelper.getInstance();
         return websocketHelper.websocketPort.onmessage = (ev)=>{
+            console.log(ev.data)
             return message(ev);
         }
     }
@@ -52,6 +56,9 @@ export class websocketHelper {
                 setTimeout(r, 2000);
                 this.websocketPort.send(data);
             })
+        }
+        else{
+            this.websocketPort.send(data);
         }
     }
 }

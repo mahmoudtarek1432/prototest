@@ -15,6 +15,7 @@ export class ProtobufWebsocket{
         websocketHelper.getInstance();
         let wrapper = new ProtoWrapper(this.protoInstance.ResponseType);
         websocketHelper.websocketPort.onmessage = (ev)=>{
+            console.log(ev.data)
             let decodedEndpointResponse = wrapper.Decode<{[k:string]: IResponse[]}>(ev.data);
             EndpointReciever.handle(decodedEndpointResponse);
             return message(ev);
