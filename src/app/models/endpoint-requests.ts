@@ -1,9 +1,10 @@
 import { CityRequest } from './city-request';
 import { IEndpointTransferObject } from "../Endpoints/Interface/IEndpointTransferObject"
+import { ProductRequest } from './product-request';
 
 export class RequestEndpoints implements IEndpointTransferObject{
-    city_requests?:Array<CityRequest>
+    product_requests?:Array<ProductRequest>
     constructor(){
-        this.city_requests = new Array<CityRequest>
+        this.product_requests = new Array<ProductRequest>
     }
 }

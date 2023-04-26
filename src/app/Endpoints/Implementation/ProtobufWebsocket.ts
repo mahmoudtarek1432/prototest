@@ -15,8 +15,8 @@ export class ProtobufWebsocket{
         websocketHelper.getInstance();
         let wrapper = new ProtoWrapper(this.protoInstance.ResponseType);
         websocketHelper.websocketPort.onmessage = (ev)=>{
-            console.log(ev.data)
-            let decodedEndpointResponse = wrapper.Decode<{[k:string]: IResponse[]}>(ev.data);
+            let uint8 = new Uint8Array(ev.data);
+            let decodedEndpointResponse = wrapper.Decode<{[k:string]: IResponse[]}>(uint8);
             EndpointReciever.handle(decodedEndpointResponse);
             return message(ev);
         }
@@ -25,8 +25,11 @@ export class ProtobufWebsocket{
     public OpenWebsocket(){
         websocketHelper.getInstance();
         let wrapper = new ProtoWrapper(this.protoInstance.ResponseType);
-        websocketHelper.websocketPort.onmessage = (ev)=>{
-            let decodedEndpointResponse = wrapper.Decode<{[k:string]: IResponse[]}>(ev.data)
+        websocketHelper.websocketPort.onmessage = async (ev:MessageEvent<Blob>)=>{
+            let buffer = await ev.data.arrayBuffer();
+            let uint8 = new Uint8Array(buffer);
+            let decodedEndpointResponse = wrapper.Decode<{[k:string]: IResponse[]}>(uint8)
+            console.log(decodedEndpointResponse['product_responses'])
             EndpointReciever.handle(decodedEndpointResponse);
         }
     }

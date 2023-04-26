@@ -12,7 +12,6 @@ import { LoginResponse } from './models/login-response';
 import { LoginEndpoint } from './Services/LoginService/login-endpoint.service';
 import { EndpointType } from './helper/Protobuf/ProtoFileStringManipulation';
 import { ProtobufEndpointBuilder } from './helper/Protobuf/ProtobufEndpointBuilder';
-import { ProductResponse } from './models/product-response';
 import { CityService } from './Services/CityService/city.service';
 import { CityRequest } from './models/city-request';
 import { MethodType } from './helper/Endpoint Managment/model/method_type';
@@ -21,6 +20,7 @@ import { ProtobufWebsocket } from './Endpoints/Implementation/ProtobufWebsocket'
 import { IResponse } from './helper/Endpoint Managment/model/IResponse';
 import { RequestEndpointResolver } from './Endpoints/Implementation/RequestEndpointResolver';
 import { RequestEndpoints } from './models/endpoint-requests';
+import { ProductRequest } from './models/product-request';
 
 @Component({
   selector: 'app-root',
@@ -30,6 +30,34 @@ import { RequestEndpoints } from './models/endpoint-requests';
 export class AppComponent{
   title = 'prototest';
   constructor( private protoInstance: ProtoRootInstance){
+
+      this.serverTest();
+      this.protoInstance.instantiate();
+
+      let websocket = new ProtobufWebsocket(protoInstance);
+      websocket.OpenWebsocket();
+
+      var wrapper = new ProtoWrapper(protoInstance.ResponseType);
+      var d = wrapper.Decode<{[k:string]: IResponse[]}>(new Uint8Array([10,12, 18,5,99,97, 105,114,111,32,1,40,200,1]));
+      console.log("end")
+  }
+
+  serverTest(){
+      const ProductResponse = "message ProductResponse {\
+        string Name = 1;\
+        string Description = 2;\
+        float Price = 3;\
+       }";
+       const ProductRequest = "message ProductRequest {\
+        string name = 1;\
+        string description = 2;\
+        float price = 3;\
+     }";
+      ProtobufEndpointBuilder.addProtoEndpoint(ProductResponse,EndpointType.response);
+      ProtobufEndpointBuilder.addProtoEndpoint(ProductRequest,EndpointType.request);
+  }
+
+  oldTest(){
     const cityResponse = "message CityResponse {\
       string token =  1;\
       string name =  2;\
@@ -48,10 +76,6 @@ export class AppComponent{
       ProtobufEndpointBuilder.addProtoEndpoint(cityResponse,EndpointType.response);
       ProtobufEndpointBuilder.addProtoEndpoint(cityRequest,EndpointType.request);
       ProtobufEndpointBuilder.addProtoEndpoint(loginResponse,EndpointType.response);
-      this.protoInstance.instantiate();
-
-      let websocket = new ProtobufWebsocket(protoInstance);
-      websocket.OpenWebsocket();
-
+      
   }
 }

@@ -15,6 +15,8 @@ import { LoginResponse } from '../models/login-response';
 import { CityService } from '../Services/CityService/city.service';
 
 import { LoginEndpoint } from '../Services/LoginService/login-endpoint.service';
+import { ProductResponse } from '../models/product-response';
+import { ProductRequest } from '../models/product-request';
 
 
 @Component({
@@ -36,22 +38,24 @@ export class ProtoComponent {
   }
 
   async testRequestResponse(){
-    let cr = new CityRequest();
+    let cr = new ProductRequest();
     cr.request_id = 1;
     cr.method_type = MethodType.POST;
-    cr.is_subscribe = false;
-
+    cr.is_subscribe = true;
+    cr.name = "mahmoud";
+    cr.price = 20;
+    cr.description = "Description: from client"
 
     this.cityRequest.GetCity(cr).subscribe(r => console.log(r))
 
 
-    let cres = new CityResponse();
+    let cres = new ProductResponse();
     cres.requestId = 1;
     cres.name = "cairo"
     cres.resultCode = 200
 
     let ed = new ResponseEndpoints()
-    ed.city_responses = [cres]
+    ed.ProductResponse = [cres]
     
     let wrapper = new ProtoWrapper(this.protoInstance.ResponseType);
     let encodedmsg = wrapper.EncodeMessage(ed)
@@ -62,7 +66,7 @@ export class ProtoComponent {
   }
 
   async testMix(){
-    let cr = new CityRequest();
+    let cr = new ProductRequest();
     cr.request_id = 1;
     cr.method_type = MethodType.POST;
     cr.is_subscribe = false;
@@ -71,7 +75,7 @@ export class ProtoComponent {
     this.cityRequest.GetCity(cr).subscribe(r => console.log(r))
 
 
-    let cres = new CityResponse();
+    let cres = new ProductResponse();
     cres.requestId = 2;
     cres.name = "cairo"
     cres.resultCode = 200
@@ -82,8 +86,8 @@ export class ProtoComponent {
     lres.resultCode = 410
 
     let ed = new ResponseEndpoints()
-    ed.city_responses = [cres]
-    ed.login_responses = [lres]
+    ed.ProductResponse = [cres]
+
     
     let wrapper = new ProtoWrapper(this.protoInstance.ResponseType);
     let encodedmsg = wrapper.EncodeMessage(ed)
