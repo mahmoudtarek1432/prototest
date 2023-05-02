@@ -1,4 +1,7 @@
-import { EndpointType, ProtoFileStringManipulation } from "./ProtoFileStringManipulation";
+import { IRequest } from '../Endpoint Managment/model/IRequest';
+import { EndpointType, ProtoFileStringManipulation } from './ProtoFileStringManipulation';
+import { IResponse } from '../Endpoint Managment/model/IResponse';
+import { navi } from '../Endpoint Managment/model/navi';
 
 export class ProtobufEndpointBuilder{
 
@@ -22,6 +25,17 @@ export class ProtobufEndpointBuilder{
                 ProtobufEndpointBuilder.protoResponseFiles.push(fileDetails);
                 break;
         }
+    }
+
+    static addEndpointModelbyClass<T>(modelClass: {new():T}, type: EndpointType){
+       var t = new modelClass ()
+       
+       Object.getOwnPropertyNames(t).map(n =>{
+        let v = n as keyof typeof modelClass
+        if(typeof t[v] == "object")
+            console.log(Object.getOwnPropertyNames(t[v]))
+
+       })
     }
 
     /// there shall be a response endpoint and request endpoint

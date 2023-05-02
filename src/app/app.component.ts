@@ -38,20 +38,20 @@ export class AppComponent{
       websocket.OpenWebsocket();
 
       var wrapper = new ProtoWrapper(protoInstance.ResponseType);
-      var d = wrapper.Decode<{[k:string]: IResponse[]}>(new Uint8Array([10,12, 18,5,99,97, 105,114,111,32,1,40,200,1]));
-      console.log("end")
+      //var d = wrapper.Decode<{[k:string]: IResponse[]}>(new Uint8Array([10,12, 18,5,99,97, 105,114,111,32,1,40,200,1]));
+      console.log(ProtobufEndpointBuilder.addEndpointModelbyClass(ProductRequest,EndpointType.response))
   }
 
   serverTest(){
       const ProductResponse = "message ProductResponse {\
         string Name = 1;\
         string Description = 2;\
-        float Price = 3;\
+        string Price = 3;\
        }";
        const ProductRequest = "message ProductRequest {\
         string name = 1;\
         string description = 2;\
-        float price = 3;\
+        string price = 3;\
      }";
       ProtobufEndpointBuilder.addProtoEndpoint(ProductResponse,EndpointType.response);
       ProtobufEndpointBuilder.addProtoEndpoint(ProductRequest,EndpointType.request);
