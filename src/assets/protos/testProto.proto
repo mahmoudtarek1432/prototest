@@ -18,6 +18,7 @@ message ResponseEndpoints {
     int32 resultCode = 5;
     repeated error errors = 6;
 }
+
 message error{
     string message = 1;
 } 
@@ -32,4 +33,6 @@ message RequestEndpoints {
     string name =  2;
     repeated int32 list =  3;
     int32 request_id = 4;
-    bool is_subscribe = 5;                                    int32 method_type = 6; } 
+    bool is_subscribe = 5;
+    int32 method_type = 6;
+ } 

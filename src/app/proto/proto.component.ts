@@ -39,11 +39,11 @@ export class ProtoComponent {
 
   async testRequestResponse(){
     let cr = new ProductRequest();
-    cr.request_id = 1;
+    cr.request_id = "1";
     cr.method_type = MethodType.POST;
     cr.is_subscribe = true;
     cr.name = "mahmoud";
-    cr.price = 20;
+    cr.price = "20";
     cr.description = "Description: from client"
 
     this.cityRequest.GetCity(cr).subscribe(r => console.log(r))
@@ -67,7 +67,7 @@ export class ProtoComponent {
 
   async testMix(){
     let cr = new ProductRequest();
-    cr.request_id = 1;
+    cr.request_id = "1";
     cr.method_type = MethodType.POST;
     cr.is_subscribe = false;
 
