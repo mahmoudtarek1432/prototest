@@ -32,8 +32,13 @@ export class ProtobufEndpointBuilder{
        
        Object.getOwnPropertyNames(t).map(n =>{
         let v = n as keyof typeof modelClass
-        if(typeof t[v] == "object")
+        if(typeof t[v] == "object"){
+            //the passed variable is an object
             console.log(Object.getOwnPropertyNames(t[v]))
+        }
+        else{
+            
+        }
 
        })
     }
