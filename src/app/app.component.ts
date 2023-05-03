@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as proto from 'protobufjs'
 import { ProtobufType } from 'src/app/helper/Protobuf/ProtoBufType';
-import { ProtoRootInstance } from 'src/app/helper/Protobuf/ProtoRootComposer';
 import { ProtoWrapper } from 'src/app/helper/Protobuf/protowrapper';
 import { EndpointsSubjects } from 'src/app/helper/Subject/Endpoints-Subjects';
 import { EndpointsMap } from 'src/app/helper/Endpoint Managment/EnpointMap';
@@ -21,6 +20,7 @@ import { IResponse } from './helper/Endpoint Managment/model/IResponse';
 import { RequestEndpointResolver } from './Endpoints/Implementation/RequestEndpointResolver';
 import { RequestEndpoints } from './models/endpoint-requests';
 import { ProductRequest } from './models/product-request';
+import { ProtoRootProvider } from './helper/Protobuf/ProtoRootProvider';
 
 @Component({
   selector: 'app-root',
@@ -29,7 +29,7 @@ import { ProductRequest } from './models/product-request';
 })
 export class AppComponent{
   title = 'prototest';
-  constructor( private protoInstance: ProtoRootInstance){
+  constructor( private protoInstance: ProtoRootProvider){
 
       this.serverTest();
       this.protoInstance.instantiate();

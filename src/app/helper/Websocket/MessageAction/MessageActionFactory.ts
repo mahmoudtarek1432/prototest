@@ -9,7 +9,7 @@ export class MessageActionFactory{
                 return new ExcuteRequest(parms[0]);
                 break;
             case "String":
-                return new SyncProto();
+                return new SyncProto(parms[1]);
                 break;
         }
         return undefined;

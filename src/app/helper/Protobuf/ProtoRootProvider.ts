@@ -1,12 +1,12 @@
 export class ProtoRootProvider{
     RequestType!: protobuf.Type;
     ResponseType!: protobuf.Type;
-    constructor(){
 
+    instantiateRequestType(requestRoot: protobuf.Root){
+        this.RequestType = requestRoot.lookupType("ProtobufWebsocket.Model.RequestEndpoint");
+        
     }
-
-    instantiate(){
-        this.RequestType 
-        this.ResponseType
+    instantiateResponseType(responseRoot: protobuf.Root){
+        this.ResponseType = responseRoot.lookupType("ProtobufWebsocket.Model.ResponseEndpoint");
     }
 }

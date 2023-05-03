@@ -1,14 +1,10 @@
 import { Component } from '@angular/core';
-import * as protobuf from 'protobufjs';
-import { WebsocketRequestClient } from '../Endpoints/Implementation/WebsocketRequestClient';
 import { EndpointReciever } from '../helper/Endpoint Managment/EndpointReciever';
 import { IResponse } from '../helper/Endpoint Managment/model/IResponse';
 import { MethodType } from '../helper/Endpoint Managment/model/method_type';
-import { ProtoRootInstance } from '../helper/Protobuf/ProtoRootComposer';
+
 import { ProtoWrapper } from '../helper/Protobuf/protowrapper';
-import { CityRequest } from '../models/city-request';
-import { CityResponse } from '../models/city-response';
-import { RequestEndpoints } from '../models/endpoint-requests';
+
 import { ResponseEndpoints } from '../models/endpoint-responses';
 import { LoginRequest } from '../models/login-request';
 import { LoginResponse } from '../models/login-response';
@@ -17,6 +13,7 @@ import { CityService } from '../Services/CityService/city.service';
 import { LoginEndpoint } from '../Services/LoginService/login-endpoint.service';
 import { ProductResponse } from '../models/product-response';
 import { ProductRequest } from '../models/product-request';
+import { ProtoRootProvider } from '../helper/Protobuf/ProtoRootProvider';
 
 
 @Component({
@@ -28,7 +25,7 @@ export class ProtoComponent {
 
   prototext!:any;
 
-  constructor(private protoInstance: ProtoRootInstance,private cityRequest: CityService){
+  constructor(private protoInstance: ProtoRootProvider,private cityRequest: CityService){
   }
 
   openBroadcast(){
