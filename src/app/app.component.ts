@@ -36,6 +36,7 @@ console.log(this.protoRequestMock())
     this.testRemote(this.protoRequestMock());
     this.testRemote(this.protoResponsetMock());
     this.testRemote(this.protoResponseMock());
+
     let websocket = new ProtobufWebsocket(protoInstance);
     websocket.OpenWebsocket();
 
@@ -46,43 +47,6 @@ console.log(this.protoRequestMock())
     var incomingType = Object.getPrototypeOf(stream).constructor.name;
     var MessageAction = MessageActionFactory.buildAction(incomingType,[wrapper,this.protoInstance])
     MessageAction!.fireAction(stream)
-  }
-
-  serverTest(){
-      const ProductResponse = "message ProductResponse {\
-        string Name = 1;\
-        string Description = 2;\
-        float Price = 3;\
-       }";
-       const ProductRequest = "message ProductRequest {\
-        string name = 1;\
-        string description = 2;\
-        float price = 3;\
-     }";
-      ProtobufEndpointBuilder.addProtoEndpoint(ProductResponse,EndpointType.response);
-      ProtobufEndpointBuilder.addProtoEndpoint(ProductRequest,EndpointType.request);
-  }
-
-  oldTest(){
-    const cityResponse = "message CityResponse {\
-      string token =  1;\
-      string name =  2;\
-      repeated int32 list =  3;\  }";
-
-    const cityRequest = "message CityRequest {\
-      string token =  1;\
-      string name =  2;\
-      repeated int32 list =  3;\  }";
-
-      const loginResponse = "message LoginResponse {\
-        string token =  1;\
-        string name =  2;\
-        repeated int32 list =  3;\  }";
-
-      ProtobufEndpointBuilder.addProtoEndpoint(cityResponse,EndpointType.response);
-      ProtobufEndpointBuilder.addProtoEndpoint(cityRequest,EndpointType.request);
-      ProtobufEndpointBuilder.addProtoEndpoint(loginResponse,EndpointType.response);
-      
   }
 
   protoRequestMock(){

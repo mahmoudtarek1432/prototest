@@ -44,22 +44,6 @@ export class ProtoComponent {
     cr.description = "Description: from client"
 
     this.cityRequest.GetCity(cr).subscribe(r => console.log(r))
-
-
-    let cres = new ProductResponse();
-    cres.requestId = 1;
-    cres.name = "cairo"
-    cres.resultCode = 200
-
-    let ed = new ResponseEndpoints()
-    ed.ProductResponse = [cres]
-    
-    let wrapper = new ProtoWrapper(this.protoInstance.ResponseType);
-    let encodedmsg = wrapper.EncodeMessage(ed)
-
-    let decodedEndpointResponse = wrapper.Decode<{[k:string]: IResponse[]}>(encodedmsg)
-    console.log(decodedEndpointResponse)
-    EndpointReciever.handle(decodedEndpointResponse)
   }
 
   async testMix(){

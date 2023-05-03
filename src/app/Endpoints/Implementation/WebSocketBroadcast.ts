@@ -6,12 +6,13 @@ import { IRequest } from "src/app/helper/Endpoint Managment/model/IRequest";
 import { RequestEndpoints } from "src/app/models/endpoint-requests";
 import { EndpointFeeder } from "src/app/helper/Endpoint Managment/EndpointFeeder";
 import { RequestIdHandler } from '../../helper/Subject/RequestIdHandler';
+import { ProtoRootProvider } from "src/app/helper/Protobuf/ProtoRootProvider";
 
 @Injectable({
     providedIn: 'root'
   })
   export class WebSocketBroadcast{
-    constructor(private ProtoInstance: ProtoRootComposer){
+    constructor(private ProtoInstance: ProtoRootProvider){
     }
     Subscribe(payload: IRequest){ //tba
       let requestId = RequestIdHandler.generateRequestId();
