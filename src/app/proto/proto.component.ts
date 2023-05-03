@@ -4,7 +4,7 @@ import { WebsocketRequestClient } from '../Endpoints/Implementation/WebsocketReq
 import { EndpointReciever } from '../helper/Endpoint Managment/EndpointReciever';
 import { IResponse } from '../helper/Endpoint Managment/model/IResponse';
 import { MethodType } from '../helper/Endpoint Managment/model/method_type';
-import { ProtoRootInstance } from '../helper/Protobuf/ProtoRootInstance';
+import { ProtoRootInstance } from '../helper/Protobuf/ProtoRootComposer';
 import { ProtoWrapper } from '../helper/Protobuf/protowrapper';
 import { CityRequest } from '../models/city-request';
 import { CityResponse } from '../models/city-response';

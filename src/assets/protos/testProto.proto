@@ -1,35 +1,44 @@
 syntax = "proto3";
-package Endpoint;
-message ResponseEndpoints {
-    repeated CityResponse city_responses = 1;
-    repeated LoginResponse login_responses = 2;
-} message CityResponse {
-    string token =  1;
-    string name =  2;
-    repeated int32 list =  3;
-    int32 requestId = 4;
-    int32 resultCode = 5;
-    repeated error errors = 6;
-} message LoginResponse {
-    string token =  1;
-    string name =  2;
-    repeated int32 list =  3;
-    int32 requestId = 4;
-    int32 resultCode = 5;
-    repeated error errors = 6;
+package ProtobufWebsocket.Model;
+
+enum MethodType {
+   ZERO = 0; // proto3 requires a zero value as the first item (it can be named anything)
+   HTTP = 1;
+   POST = 2;
+   PUT = 3;
+   PATCH = 4;
+   DELETE = 5;
 }
-message error{
-    string message = 1;
-} 
+message RequestEndpoint {
+   repeated product product = 1;
+}
+message product {
+   string Name = 1;
+   string Description = 2;
+   float Price = 3;
+   int32 request_id = 4;
+   bool is_subscribe = 5;
+   MethodType methode_type = 6;
+}
 
-syntax = "proto3";
 
-package Endpoint;
-message RequestEndpoints { 
-    repeated CityRequest city_requests = 1; 
- } message CityRequest {
-    string token =  1;
-    string name =  2;
-    repeated int32 list =  3;
-    int32 request_id = 4;
-    bool is_subscribe = 5;                                    int32 method_type = 6; } 
+message Error {
+   string message = 1;
+}
+message ProductResponse {
+   string Name = 1;
+   string Description = 2;
+   float Price = 3;
+   int32 request_id = 4;
+   ResultCode resultCode = 5;
+   repeated Error Errors = 6;
+}
+message ResponseEndpoint {
+   repeated ProductResponse ProductResponse = 1;
+}
+enum ResultCode {
+   ZERO = 0; // proto3 requires a zero value as the first item (it can be named anything)
+   Success = 200;
+   NotFound = 404;
+   Subscribed = 410;
+}

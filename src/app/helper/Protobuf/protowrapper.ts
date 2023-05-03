@@ -1,6 +1,6 @@
 import * as protobuf from 'protobufjs';
 import { ProtobufType } from './ProtoBufType';
-import { ProtoRootInstance } from './ProtoRootInstance';
+import { ProtoRootComposer } from './ProtoRootComposer';
 
 /**A wrapper built on top of protobuf.js to ease implementation*/
 export class ProtoWrapper{

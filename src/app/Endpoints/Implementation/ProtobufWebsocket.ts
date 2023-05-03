@@ -1,12 +1,13 @@
 import { EndpointReciever } from "src/app/helper/Endpoint Managment/EndpointReciever";
 import { IResponse } from "src/app/helper/Endpoint Managment/model/IResponse";
-import { ProtoRootInstance } from "src/app/helper/Protobuf/ProtoRootInstance";
+import { ProtoRootComposer } from "src/app/helper/Protobuf/ProtoRootComposer";
 import { ProtoWrapper } from "src/app/helper/Protobuf/protowrapper";
+import { MessageActionFactory } from "src/app/helper/Websocket/MessageAction/MessageActionFactory";
 import { websocketHelper } from "src/app/helper/Websocket/WebsocketHelper";
 
 export class ProtobufWebsocket{
 
-    constructor(private protoInstance: ProtoRootInstance){
+    constructor(private protoInstance: ProtoRootComposer){
 
     }
 
@@ -25,12 +26,10 @@ export class ProtobufWebsocket{
     public OpenWebsocket(){
         websocketHelper.getInstance();
         let wrapper = new ProtoWrapper(this.protoInstance.ResponseType);
-        websocketHelper.websocketPort.onmessage = async (ev:MessageEvent<Blob>)=>{
-            let buffer = await ev.data.arrayBuffer();
-            let uint8 = new Uint8Array(buffer);
-            let decodedEndpointResponse = wrapper.Decode<{[k:string]: IResponse[]}>(uint8)
-            console.log(decodedEndpointResponse['product_responses'])
-            EndpointReciever.handle(decodedEndpointResponse);
+        websocketHelper.websocketPort.onmessage = async (ev:MessageEvent)=>{
+            var incomingType = Object.getPrototypeOf(ev.data).constructor.name;
+            var MessageAction = MessageActionFactory.buildAction(incomingType,[wrapper])
+            MessageAction!.fireAction(ev.data)
         }
     }
     

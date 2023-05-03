@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EndpointsSubjects } from 'src/app/helper/Subject/Endpoints-Subjects';
-import { ProtoRootInstance } from 'src/app/helper/Protobuf/ProtoRootInstance';
+import { ProtoRootInstance } from 'src/app/helper/Protobuf/ProtoRootComposer';
 import { ProtobufType } from 'src/app/helper/Protobuf/ProtoBufType';
 import { ProtobufEndpointBuilder } from './helper/Protobuf/ProtobufEndpointBuilder';
 

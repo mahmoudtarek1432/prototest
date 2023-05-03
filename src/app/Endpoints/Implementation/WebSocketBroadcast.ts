@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { ProtoWrapper } from "src/app/helper/Protobuf/protowrapper";
 import { websocketHelper } from "../../helper/Websocket/WebsocketHelper";
-import { ProtoRootInstance } from "src/app/helper/Protobuf/ProtoRootInstance";
+import { ProtoRootComposer } from "src/app/helper/Protobuf/ProtoRootComposer";
 import { IRequest } from "src/app/helper/Endpoint Managment/model/IRequest";
 import { RequestEndpoints } from "src/app/models/endpoint-requests";
 import { EndpointFeeder } from "src/app/helper/Endpoint Managment/EndpointFeeder";
@@ -11,7 +11,7 @@ import { RequestIdHandler } from '../../helper/Subject/RequestIdHandler';
     providedIn: 'root'
   })
   export class WebSocketBroadcast{
-    constructor(private ProtoInstance: ProtoRootInstance){
+    constructor(private ProtoInstance: ProtoRootComposer){
     }
     Subscribe(payload: IRequest){ //tba
       let requestId = RequestIdHandler.generateRequestId();

@@ -3,7 +3,7 @@ import { ProtoWrapper } from "src/app/helper/Protobuf/protowrapper";
 import { EndpointsSubjects } from "src/app/helper/Subject/Endpoints-Subjects";
 import { websocketHelper } from "../../helper/Websocket/WebsocketHelper";
 import { RequestIdHandler } from "../../helper/Subject/RequestIdHandler";
-import { ProtoRootInstance } from "src/app/helper/Protobuf/ProtoRootInstance";
+import { ProtoRootComposer } from "src/app/helper/Protobuf/ProtoRootComposer";
 import { IResponse } from "src/app/helper/Endpoint Managment/model/IResponse";
 import { IRequest } from "src/app/helper/Endpoint Managment/model/IRequest";
 import { EndpointFeeder } from "src/app/helper/Endpoint Managment/EndpointFeeder";
@@ -13,7 +13,7 @@ import { RequestEndpoints } from "src/app/models/endpoint-requests";
     providedIn: 'root'
   })
   export class WebsocketRequestClient{
-    constructor(private subject: EndpointsSubjects, private ProtoInstance: ProtoRootInstance){
+    constructor(private subject: EndpointsSubjects, private ProtoInstance: ProtoRootComposer){
     }
     request<Res extends IResponse>(payload: IRequest){ //tba
         let requestId = RequestIdHandler.generateRequestId();

@@ -39,8 +39,8 @@ export class websocketHelper {
      */
     static ReciveWebsocketMessage<T>(message:(event:MessageEvent<any>)=>any){
         websocketHelper.getInstance();
+        var first = true;
         return websocketHelper.websocketPort.onmessage = (ev)=>{
-            console.log(ev.data)
             return message(ev);
         }
     }

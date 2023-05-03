@@ -2,19 +2,24 @@ import * as protobuf from "protobufjs";
 import { ProtobufEndpointBuilder } from "./ProtobufEndpointBuilder";
 import { ProtobufType } from "./ProtoBufType";
 import { ProtoFileStringManipulation } from "./ProtoFileStringManipulation";
+import { ProtoRootInstance } from "./IProtoRootInstance";
 
-export class ProtoRootInstance{
+//composes proto root by concatinating protofiles as strings
+export class ProtoRootComposer implements ProtoRootInstance{
     RequestType!: protobuf.Type;
     ResponseType!: protobuf.Type;
     constructor(){
 
     }
 
-    instantiate(){
-
+    instantiateBuilder(){
         this.RequestType = this.builResquestProtoType().lookupType("Endpoint.RequestEndpoints");
         this.ResponseType = this.buildResponseProtoType().lookupType("Endpoint.ResponseEndpoints");
+    }
 
+    instantiateFromString(request:string, resposne:string){
+        this.RequestType = this.builResquestProtoType().lookupType("ProtobufWebsocket.Model.RequestEndpoint");
+        this.ResponseType = this.buildResponseProtoType().lookupType("ProtobufWebsocket.Model.RequestEndpoint");
     }
 
     buildResponseProtoType(){

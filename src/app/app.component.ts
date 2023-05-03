@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as proto from 'protobufjs'
 import { ProtobufType } from 'src/app/helper/Protobuf/ProtoBufType';
-import { ProtoRootInstance } from 'src/app/helper/Protobuf/ProtoRootInstance';
+import { ProtoRootInstance } from 'src/app/helper/Protobuf/ProtoRootComposer';
 import { ProtoWrapper } from 'src/app/helper/Protobuf/protowrapper';
 import { EndpointsSubjects } from 'src/app/helper/Subject/Endpoints-Subjects';
 import { EndpointsMap } from 'src/app/helper/Endpoint Managment/EnpointMap';
@@ -39,7 +39,17 @@ export class AppComponent{
 
       var wrapper = new ProtoWrapper(protoInstance.ResponseType);
       var d = wrapper.Decode<{[k:string]: IResponse[]}>(new Uint8Array([10,12, 18,5,99,97, 105,114,111,32,1,40,200,1]));
-      console.log("end")
+      
+      proto.load("../assets/protos/testProto.proto",(function(err, root) {
+        if (err)
+          throw err;
+      
+        // example code
+        const AwesomeMessage = root!.lookupType("ProtobufWebsocket.Model.RequestEndpoint");
+        var wrapper = new ProtoWrapper(AwesomeMessage);
+        console.log(wrapper.Decode<{[k:string]: IResponse[]}>(new Uint8Array([10,12, 18,5,99,97, 105,114,111,32,1,40,200,1])));
+      }));
+
   }
 
   serverTest(){
