@@ -7,5 +7,5 @@ export class ProductRequest extends IRequest {
     name =""
     description = ""
     price = ""
-    test:ProductResponse = new ProductResponse()
+    test:number[] = []
 } 

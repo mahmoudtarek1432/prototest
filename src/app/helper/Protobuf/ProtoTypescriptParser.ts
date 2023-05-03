@@ -6,9 +6,10 @@ export class ProtoTypescriptParser{
         
         Object.getOwnPropertyNames(model).map(n =>{
          let name = n as keyof typeof modelClass
+         console.log(typeof model[name])
          if(typeof model[name] == "object"){
              //the passed variable is an object
-             console.log(Object.getOwnPropertyNames(model[name]))
+            
          }
          else {
                 var member = new protoDetails();
