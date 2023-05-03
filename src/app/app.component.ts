@@ -21,6 +21,7 @@ import { IResponse } from './helper/Endpoint Managment/model/IResponse';
 import { RequestEndpointResolver } from './Endpoints/Implementation/RequestEndpointResolver';
 import { RequestEndpoints } from './models/endpoint-requests';
 import { ProductRequest } from './models/product-request';
+import { ProtoTypescriptParser } from './helper/Protobuf/ProtoTypescriptParser';
 
 @Component({
   selector: 'app-root',
@@ -39,7 +40,8 @@ export class AppComponent{
 
       var wrapper = new ProtoWrapper(protoInstance.ResponseType);
       //var d = wrapper.Decode<{[k:string]: IResponse[]}>(new Uint8Array([10,12, 18,5,99,97, 105,114,111,32,1,40,200,1]));
-      console.log(ProtobufEndpointBuilder.addEndpointModelbyClass(ProductRequest,EndpointType.response))
+      console.log(ProtoTypescriptParser.addEndpointModelbyClass(ProductRequest,EndpointType.response))
+      var x = new ProductRequest()
   }
 
   serverTest(){

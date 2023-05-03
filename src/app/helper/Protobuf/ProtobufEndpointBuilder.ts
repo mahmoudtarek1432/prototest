@@ -27,22 +27,6 @@ export class ProtobufEndpointBuilder{
         }
     }
 
-    static addEndpointModelbyClass<T>(modelClass: {new():T}, type: EndpointType){
-       var t = new modelClass ()
-       
-       Object.getOwnPropertyNames(t).map(n =>{
-        let v = n as keyof typeof modelClass
-        if(typeof t[v] == "object"){
-            //the passed variable is an object
-            console.log(Object.getOwnPropertyNames(t[v]))
-        }
-        else{
-            
-        }
-
-       })
-    }
-
     /// there shall be a response endpoint and request endpoint
     static buildResponseEndpoint(){
         let endpoint ="syntax = \"proto3\";\
