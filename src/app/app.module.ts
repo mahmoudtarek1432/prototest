@@ -14,9 +14,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EndpointsSubjects } from 'src/app/helper/Subject/Endpoints-Subjects';
-import { ProtoRootInstance } from 'src/app/helper/Protobuf/ProtoRootComposer';
-import { ProtobufType } from 'src/app/helper/Protobuf/ProtoBufType';
 import { ProtobufEndpointBuilder } from './helper/Protobuf/ProtobufEndpointBuilder';
+import { ProtoRootProvider } from './helper/Protobuf/ProtoRootProvider';
 
 registerLocaleData(en);
 
@@ -36,7 +35,7 @@ registerLocaleData(en);
   ],
   providers: [
     EndpointsSubjects,
-    ProtoRootInstance,
+    ProtoRootProvider,
     ProtobufEndpointBuilder,
     { provide: NZ_I18N, useValue: en_US }
   ],
