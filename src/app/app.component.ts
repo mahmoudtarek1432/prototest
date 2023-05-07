@@ -37,7 +37,7 @@ console.log(this.protoRequestMock())
     this.testRemote(this.protoResponsetMock());
     this.testRemote(this.protoResponseMock());
 
-    let websocket = new ProtobufWebsocket(protoInstance);
+    let websocket = new ProtobufWebsocket();
     websocket.OpenWebsocket('ws://127.0.0.1:80/test');
 
   }

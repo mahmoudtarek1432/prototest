@@ -1,3 +1,4 @@
+import { inject } from "@angular/core";
 import { EndpointReciever } from "src/app/helper/Endpoint Managment/EndpointReciever";
 import { IResponse } from "src/app/helper/Endpoint Managment/model/IResponse";
 import { ProtoRootComposer } from "src/app/helper/Protobuf/ProtoRootComposer";
@@ -7,9 +8,9 @@ import { MessageActionFactory } from "src/app/helper/Websocket/MessageAction/Mes
 import { websocketHelper } from "src/app/helper/Websocket/WebsocketHelper";
 
 export class ProtobufWebsocket{
-
-    constructor(private protoInstance: ProtoRootProvider){
-
+    protoInstance: ProtoRootProvider
+    constructor(){
+        this.protoInstance = inject(ProtoRootProvider)
     }
 
     //handle incoming message responses
