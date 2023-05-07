@@ -11,10 +11,11 @@ import { IEndpoint } from '../Interface/IResponseEndpoint';
 export class RequestEndpointResolver extends IEndpoint<any> {
 
   constructor(private endpointSubjects: EndpointsSubjects) {
+    let x:any = null
     super(LoginResponse);
    }
 
   override handle(responseObj: any){
-    this.endpointSubjects.updateSubject<typeof responseObj>(responseObj.requestId.toString(), responseObj);
+    this.endpointSubjects.updateSubject<typeof responseObj>(responseObj.request_id.toString(), responseObj);
   }
 }

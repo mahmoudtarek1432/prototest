@@ -24,8 +24,8 @@ export class ProtobufWebsocket{
         }
     }
 
-    public OpenWebsocket(){
-        websocketHelper.getInstance();
+    public OpenWebsocket(port:string =""){
+        websocketHelper.getInstance(port);
         let wrapper = new ProtoWrapper(this.protoInstance.ResponseType);
         websocketHelper.websocketPort.onmessage = async (ev:MessageEvent)=>{
             var incomingType = Object.getPrototypeOf(ev.data).constructor.name;

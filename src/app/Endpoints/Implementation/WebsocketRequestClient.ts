@@ -21,7 +21,7 @@ import { ProtoRootProvider } from "src/app/helper/Protobuf/ProtoRootProvider";
         let requestSubject = this.subject.getSubjectObservable<Res>(requestId);
         //build an endpoint
         console.log(payload)
-        let endpoint = EndpointFeeder.FeedRequestEndpoint(payload,new RequestEndpoints());
+        let endpoint = EndpointFeeder.FeedRequestEndpoint(payload,{});
         //send
         let ProtoBufWrapper = new ProtoWrapper(this.ProtoInstance.RequestType);
         let protoEncodedMessage = ProtoBufWrapper.EncodeMessage(endpoint);

@@ -20,7 +20,7 @@ export class EndpointReciever{
               responseContainer?.map((Response) => {                            // as a property of endpointResponse Class --- potential danger
                 //tb - check status for broadcast or request based event
                 let responseClassType = Object.getPrototypeOf(Response).constructor;
-                if(Response.resultCode == ResultCode["Subscribed"]){
+                if(Response.result_code == ResultCode["Subscribed"]){
                   ServiceInstancefactory.createInstance(responseClassType).handle(Response);
                 }
                 else{                                                               //returns an endpoint according to the passed response's prototype

@@ -8,7 +8,7 @@ export class websocketHelper {
 
     public static websocketPort:WebSocket;
 
-    constructor(private globals:Globals){
+    constructor(){
 
     }
 
@@ -18,13 +18,13 @@ export class websocketHelper {
      * @param websocketUrl - websocket Url in the form: wss//localhost:port
      * @returns a websocket connection
      */
-    public static getInstance():WebSocket{
+    public static getInstance(port:string=""):WebSocket{
 
         if(this.websocketPort)
             return this.websocketPort;
 
             
-        let socket = new window.WebSocket(Globals.wsUrl) 
+        let socket = new window.WebSocket(port) 
         this.websocketPort = socket;
         socket.onopen = ev => {
             console.log(ev)

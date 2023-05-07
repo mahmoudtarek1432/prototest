@@ -2,7 +2,7 @@ import { ResultCode } from "./result-code";
 import { Error } from "./error";
 
 export abstract class IResponse {
-    requestId!: number;
-    resultCode!: ResultCode;
+    request_id!: number;
+    result_code!: ResultCode;
     errors = new Array<Error>();
 }

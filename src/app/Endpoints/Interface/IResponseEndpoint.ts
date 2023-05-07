@@ -19,7 +19,7 @@ export abstract class IEndpoint<R extends IResponse>{
         this.WebsocketBroadcast = AppModule.injectorInstance.get(WebSocketBroadcast);
 
         let className = this.constructor.name;
-        EndpointsMap.CreateEndpoint(LoginResponse,Object.getPrototypeOf(this).constructor);
+        EndpointsMap.CreateEndpoint(responseType,Object.getPrototypeOf(this).constructor);
         this.subject.createNewsubject<R>(className, new responseType());
     }
 

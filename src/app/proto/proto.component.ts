@@ -57,14 +57,14 @@ export class ProtoComponent {
 
 
     let cres = new ProductResponse();
-    cres.requestId = 2;
+    cres.request_id = 2;
     cres.name = "cairo"
-    cres.resultCode = 200
+    cres.result_code = 200
 
     let lres = new LoginResponse();
-    lres.requestId = 1;
+    lres.request_id = 1;
 
-    lres.resultCode = 410
+    lres.result_code = 410
 
     let ed = new ResponseEndpoints()
     ed.ProductResponse = [cres]

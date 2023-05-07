@@ -5,7 +5,7 @@ import { SyncProto } from "./SyncProto";
 export class MessageActionFactory{
     static buildAction(MessageProtoType:any, parms:any[]): IMessageAction | undefined{
         switch(MessageProtoType){
-            case "Blob":
+            case "Uint8Array":
                 return new ExcuteRequest(parms[0]);
                 break;
             case "String":
