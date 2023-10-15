@@ -1,7 +1,2 @@
-package package;
-syntax = "proto3";
-
-message testingproto {
-    string awesome_field = 1; // becomes awesomeField
-    int32 awesome_type = 2;
-}
+syntax = "proto3";    package ProtobufWebsocket.Model;    enum MethodType {       ZERO = 0; // proto3 requires a zero value as the first item (it can be named anything)
+           HTTP = 1;       POST = 2;       PUT = 3;       PATCH = 4;       DELETE = 5;    }    message RequestEndpoint {       repeated product product = 1;    }    message product {       string Name = 1;       string Description = 2;       float Price = 3;       int32 request_id = 4;       bool is_subscribe = 5;       MethodType methode_type = 6;    }

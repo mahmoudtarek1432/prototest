@@ -13,8 +13,9 @@ import en from '@angular/common/locales/en';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoginService } from './Services/LoginService/login.service';
-import { EndpointsSubjects } from 'src/Shared/Endpoints-Subjects';
+import { EndpointsSubjects } from 'src/app/helper/Subject/Endpoints-Subjects';
+import { ProtobufEndpointBuilder } from './helper/Protobuf/ProtobufEndpointBuilder';
+import { ProtoRootProvider } from './helper/Protobuf/ProtoRootProvider';
 
 registerLocaleData(en);
 
@@ -34,16 +35,18 @@ registerLocaleData(en);
   ],
   providers: [
     EndpointsSubjects,
-    LoginService,
+    ProtoRootProvider,
+    ProtobufEndpointBuilder,
     { provide: NZ_I18N, useValue: en_US }
   ],
   bootstrap: [AppComponent]
 })
 
 export class AppModule { 
-  static injectorInstance: Injector
-  //static injector instantiated
+  static injectorInstance: Injector;
+  //static injector instantiated for global use
   constructor(private DIinstance: Injector){
-    AppModule.injectorInstance = this.DIinstance
+    
+    AppModule.injectorInstance = this.DIinstance;
   }
 }

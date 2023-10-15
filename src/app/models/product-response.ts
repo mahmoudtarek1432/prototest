@@ -1,5 +1,7 @@
-import { IResponse } from "./IResponse";
+import { IResponse } from "../helper/Endpoint Managment/model/IResponse";
 
 export class ProductResponse extends IResponse {
-    name = '';
-}
+    name!:string
+    description!:string;
+    price!:number;
+    } 
