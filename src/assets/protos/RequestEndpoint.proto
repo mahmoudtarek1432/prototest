@@ -1,0 +1,13 @@
+syntax = "proto3";
+package Endpoint;
+message RequestEndpoints {
+    repeated ProductRequest product_requests = 1;  
+} 
+message ProductRequest {
+    string name = 1;
+    string description = 2;
+    float price = 3;
+    int32 request_id = 4;
+    bool is_subscribe = 5;
+    int32 method_type = 6; 
+} 

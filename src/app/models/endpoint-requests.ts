@@ -1,9 +1,10 @@
-import { ProtobufType } from "src/ProtoWraper/ProtoBufType";
+import { CityRequest } from './city-request';
+import { IEndpointTransferObject } from "../Endpoints/Interface/IEndpointTransferObject"
+import { ProductRequest } from './product-request';
 
-export class EndpointRequests extends ProtobufType {
-    constructor(filePath:string, packageName:string, className:string){
-        super(filePath, packageName, className)
+export class RequestEndpoints implements IEndpointTransferObject{
+    product_requests?:Array<ProductRequest>
+    constructor(){
+        this.product_requests = new Array<ProductRequest>
     }
-
-    //dataObjects
 }

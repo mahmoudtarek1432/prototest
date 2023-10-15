@@ -1,5 +1,5 @@
 import { IRequest } from "../helper/Endpoint Managment/model/IRequest";
 
-export class LoginRequest extends IRequest {
-    token = '';
+export class CityRequest extends IRequest{
+
 }

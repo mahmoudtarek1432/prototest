@@ -1,24 +1,22 @@
 import { Component } from '@angular/core';
 import * as protobuf from 'protobufjs';
-import { Observable } from 'rxjs';
-import { ProtobufType } from 'src/ProtoWraper/ProtoBufType';
-import { ProtoWrapper } from 'src/ProtoWraper/protowrapper';
-import { EndpointsSubjects } from 'src/Shared/Endpoints-Subjects';
-import { EndpointsMap } from 'src/Shared/EnpointMap';
-import { WebsocketRequestClient } from '../Endpoints/WebsocketRequestClient';
-import { EndpointReciever } from '../helper/EndpointReciever';
-import { ProtoHelper } from '../helper/proto-helper';
-import { ServiceInjection } from '../helper/ServiceInjection';
-import { ServiceInstancefactory } from '../helper/ServiceInstancefactory';
-import { Awesome } from '../models/awesome';
+import { WebsocketRequestClient } from '../Endpoints/Implementation/WebsocketRequestClient';
+import { EndpointReciever } from '../helper/Endpoint Managment/EndpointReciever';
+import { IResponse } from '../helper/Endpoint Managment/model/IResponse';
+import { MethodType } from '../helper/Endpoint Managment/model/method_type';
+import { ProtoRootInstance } from '../helper/Protobuf/ProtoRootInstance';
+import { ProtoWrapper } from '../helper/Protobuf/protowrapper';
+import { CityRequest } from '../models/city-request';
 import { CityResponse } from '../models/city-response';
-import { EndpointRequests } from '../models/endpoint-requests';
-import { EndpointResponses } from '../models/endpoint-responses';
+import { RequestEndpoints } from '../models/endpoint-requests';
+import { ResponseEndpoints } from '../models/endpoint-responses';
+import { LoginRequest } from '../models/login-request';
 import { LoginResponse } from '../models/login-response';
-import { ProductResponse } from '../models/product-response';
+import { CityService } from '../Services/CityService/city.service';
+
 import { LoginEndpoint } from '../Services/LoginService/login-endpoint.service';
-import { LoginService } from '../Services/LoginService/login.service';
-import { RequestService } from '../Services/RequestService/request.service';
+import { ProductResponse } from '../models/product-response';
+import { ProductRequest } from '../models/product-request';
 
 
 @Component({
@@ -28,122 +26,73 @@ import { RequestService } from '../Services/RequestService/request.service';
 })
 export class ProtoComponent {
 
-  cityinfo: Observable<CityResponse> | undefined
   prototext!:any;
 
-  constructor(private loginService: LoginEndpoint,private requestService: RequestService){
-    this.loginService.SubscribeToBroadcast().subscribe((r) => console.log(r));
-    
+  constructor(private protoInstance: ProtoRootInstance,private cityRequest: CityService){
   }
 
-  async getCityInfo(){
-    this.cityinfo = await this.requestService.GetCity(new CityResponse());
-  }
-}
-
- /* async encode2(){
-    let endpoint = this.buildendpoint()
-    this.prototext = await ProtoHelper.encode('./assets/protos/ResponseEndpoint.proto', 'ResponsePackage', 'endpoint_responses', endpoint);
-  }
-
-  async decode2(){
-    let x = await ProtoHelper.decode<EndpointResponses>('./assets/protos/ResponseEndpoint.proto', 'ResponsePackage', 'endpoint_responses', this.prototext);
-    console.log(this.buildendpoint())
-    console.log(x)
-  }
-*/
-
-/*
-
-  TestBroadCast(){
-    let er = new EndpointResponses()                          //from server after decoding
-    //EndpointsMap.CreateEndpoint(LoginResponse,LoginEndpoint)  //need to fix
-    let lr = new LoginResponse()
-    lr.resultCode = 410
-    er.loginResponses = [lr]
-
-    EndpointReciever.handle(er)
+  openBroadcast(){
+   
+    let x = new LoginEndpoint();
+    x.SubscribeToBroadcast(new LoginRequest()).subscribe(r => console.log(r))
   }
 
   async testRequestResponse(){
-    //request
-    let type = new ProtobufType('./assets/protos/ResponseEndpoint.proto', 'ResponsePackage', 'endpoint_responses')
-    let x = await this.client.request<LoginResponse>(this.buildendpoint(),type);
-    x.subscribe((d) => console.log(d))
-    let y = await this.client.request<LoginResponse>(this.buildendpoint(),type);
-    y.subscribe((d) => console.log(d))
-    //response
-    let Endpoint = new EndpointResponses() 
-    let XEndpointLR = new LoginResponse()
-    XEndpointLR.resultCode = 200
-    XEndpointLR.requestId = 1
-    XEndpointLR.token = "response from 1"
+    let cr = new ProductRequest();
+    cr.request_id = "1";
+    cr.method_type = MethodType.POST;
+    cr.is_subscribe = true;
+    cr.name = "mahmoud";
+    cr.price = "20";
+    cr.description = "Description: from client"
 
-    let YEndpointLR = new ProductResponse()
-    YEndpointLR.resultCode = 300
-    YEndpointLR.requestId = 2
-    YEndpointLR.name = "response from 2"
-
-    Endpoint.loginResponses = [XEndpointLR]
-    Endpoint.productResponses = [YEndpointLR]
-
-    EndpointReciever.handle(Endpoint)
-  }
+    this.cityRequest.GetCity(cr).subscribe(r => console.log(r))
 
 
-  async mix(){
+    let cres = new ProductResponse();
+    cres.requestId = 1;
+    cres.name = "cairo"
+    cres.resultCode = 200
 
-    let er = new EndpointResponses()                          //from server after decoding
-    //EndpointsMap.CreateEndpoint(LoginResponse,LoginEndpoint)  //need to fix
-    let lr = new LoginResponse()
-    lr.resultCode = 410
-
-
-    //request
-    let type = new ProtobufType('./assets/protos/ResponseEndpoint.proto', 'ResponsePackage', 'endpoint_responses')
-    let x = await this.client.request<LoginResponse>(this.buildendpoint(),type);
-    x.subscribe((d) => console.log(d))
-    let y = await this.client.request<LoginResponse>(this.buildendpoint(),type);
-    y.subscribe((d) => console.log(d))
-    //response
-    let XEndpointLR = new LoginResponse()
-    XEndpointLR.resultCode = 200
-    XEndpointLR.requestId = 1
-    XEndpointLR.token = "response from 1"
-
-    let YEndpointLR = new ProductResponse()
-    YEndpointLR.resultCode = 300
-    YEndpointLR.requestId = 2
-    YEndpointLR.name = "response from 2"
-
-    er.loginResponses = [XEndpointLR,lr]
-    er.productResponses = [YEndpointLR]
-
-    EndpointReciever.handle(er)
-  }
-
-
-  protoFileAccessor(callback:(protomessage: protobuf.Type| undefined) => any){
+    let ed = new ResponseEndpoints()
+    ed.ProductResponse = [cres]
     
-    protobuf.load("./assets/testingprotojs.proto",(err,root)=>{
-    var message = root?.lookupType("package.testingproto");
-      callback(message);
-    });
+    let wrapper = new ProtoWrapper(this.protoInstance.ResponseType);
+    let encodedmsg = wrapper.EncodeMessage(ed)
+
+    let decodedEndpointResponse = wrapper.Decode<{[k:string]: IResponse[]}>(encodedmsg)
+    console.log(decodedEndpointResponse)
+    EndpointReciever.handle(decodedEndpointResponse)
   }
 
-  buildendpoint(){
-    let endpoint = new EndpointResponses()
-    let lr = new LoginResponse()
-    lr.requestId = 1
-    lr.resultCode = 200
-    lr.token = "dump"
-    let pr = new ProductResponse()
-    pr.requestId = 2
-    pr.resultCode = 211
-    pr.name = "test"
-    endpoint.loginResponses = [lr]
-    endpoint.productResponses = [pr]
-    console.log(endpoint)
-    return endpoint
+  async testMix(){
+    let cr = new ProductRequest();
+    cr.request_id = "1";
+    cr.method_type = MethodType.POST;
+    cr.is_subscribe = false;
+
+
+    this.cityRequest.GetCity(cr).subscribe(r => console.log(r))
+
+
+    let cres = new ProductResponse();
+    cres.requestId = 2;
+    cres.name = "cairo"
+    cres.resultCode = 200
+
+    let lres = new LoginResponse();
+    lres.requestId = 1;
+
+    lres.resultCode = 410
+
+    let ed = new ResponseEndpoints()
+    ed.ProductResponse = [cres]
+
+    
+    let wrapper = new ProtoWrapper(this.protoInstance.ResponseType);
+    let encodedmsg = wrapper.EncodeMessage(ed)
+
+    let decodedEndpointResponse = wrapper.Decode<ResponseEndpoints>(encodedmsg)
+    EndpointReciever.handle(decodedEndpointResponse)
   }
-}*/
+}
